@@ -15,16 +15,16 @@ import com.barclays.orchestrator.model.InternalService;
  */
 @Service
 public class KafkaSender {
-	
+
 	@Autowired
 	private KafkaTemplate<String, InternalService> kafkaTemplate;
-	//private KafkaTemplate<String, String> kafkaTemplate;
-	
-	//String kafkaTopic = "barclays_routing_In_Topic";
+	// private KafkaTemplate<String, String> kafkaTemplate;
+
+	// String kafkaTopic = "barclays_routing_In_Topic";
 	String kafkaTopic = "java_in_use_topic";
+
 	public void send(InternalService data) {
-	    
-	    kafkaTemplate.send(kafkaTopic, data);
+		kafkaTemplate.send(kafkaTopic, data);
 	}
 
 }

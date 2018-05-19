@@ -24,23 +24,21 @@ public class ExternalServiceController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ExternalServiceController.class);
 
 	@Autowired
-	KafkaSender kafkaSender;
-
-	public ExternalServiceController() {
-		// TODO Auto-generated constructor stub
-	}
+	private KafkaSender kafkaSender;
 
 	@RequestMapping(value = {
 			"/pagoServicios/{serviceType}" }, method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<ExternalServiceResponse> payPublicService(@PathVariable("serviceType") int serviceType,
 			@RequestBody(required = true) ExternalService externalService) {
 		LOGGER.info("Recibiendo petición para pago de servicios");
+		
 		ResponseEntity<ExternalServiceResponse> response = null;
 		PayService payService = new PayService();
 		InternalService internalService = payService.PayServiceOrch(externalService, serviceType);
-		//kafkaSender.send(internalService.toString());
+		
 		kafkaSender.send(internalService);
-		response = new ResponseEntity<ExternalServiceResponse>( new ExternalServiceResponse(1234567889, "Pagado"), HttpStatus.OK);
+		response = new ResponseEntity<ExternalServiceResponse>(new ExternalServiceResponse(1234567889, "Pagado"),
+				HttpStatus.OK);
 		return response;
 
 	}

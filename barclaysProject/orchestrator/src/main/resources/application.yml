@@ -1,0 +1,15 @@
+
+#Server
+server:
+  port: 7001
+  servlet:
+    contextPath: /barclays
+    
+#Kafka    
+connect:
+  timeout: 10000
+read:
+  timeout: 10000
+jsa:
+  kafka:
+    bootstrap-servers: localhost:9092
