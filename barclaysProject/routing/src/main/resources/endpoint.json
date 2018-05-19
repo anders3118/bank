@@ -1,0 +1,43 @@
+{
+    "services":[
+        {
+            "id":1,
+            "name":"agua",
+            "description":"Servicio de Agua",
+            "endPoint":"https://www.google.com/**",
+            "protocol":"REST",
+            "method":"GET",
+            "enabled":true
+        },
+
+        {
+           "id":2,
+            "name":"electricidad",
+            "description":"Servicio de Electricidad",
+            "endPoint":"https://www.google.com/**",
+            "protocol":"REST",
+            "method":"POST",
+            "enabled":true
+        },
+
+        {
+           "id":3,
+            "name":"telefono",
+            "description":"Servicio de telefonia",
+            "endPoint":"https://www.google.com/**",
+            "protocol":"REST",
+            "method":"GET",
+            "enabled":true
+        },
+
+        {
+           "id":4,
+            "name":"gas",
+            "description":"Servicio de gas",
+            "endPoint":"https://www.google.com/**",
+            "protocol":"REST",
+            "method":"POST",
+            "enabled":true
+        }
+    ]
+}
