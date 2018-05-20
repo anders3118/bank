@@ -1,0 +1,45 @@
+{
+	"name":"routingFile",
+	"services": [
+		{
+			"service": 33585,
+			"operation": "Consulta",
+			"transformName": "33585_Get_Transformation.xsl"
+		},
+		{
+			"service": 33585,
+			"operation": "Pago",
+			"transformName": "33585_Post_Transformation.xsl"
+		},
+		{
+			"service": 44593,
+			"operation": "Consulta",
+			"transformName": "44593_Consulta_Transformation.xsl"
+		},
+		{
+			"service": 44593,
+			"operation": "Pago",
+			"transformName": "44593_Pago_Transformation.xsl"
+		},
+		{
+			"service": 56890,
+			"operation": "Consulta",
+			"transformName": "56890_Pago_Transformation.xsl"
+		},
+		{
+			"service": 56890,
+			"operation": "Pago",
+			"transformName": "56890_Consulta_Transformation.xsl"
+		},
+		{
+			"service": 67042,
+			"operation": "Consulta",
+			"transformName": "67042_Pago_Transformation.xsl"
+		},
+		{
+			"service": 67042,
+			"operation": "Pago",
+			"transformName": "67042_Post_Transformation.xsl"
+		}
+	]
+}

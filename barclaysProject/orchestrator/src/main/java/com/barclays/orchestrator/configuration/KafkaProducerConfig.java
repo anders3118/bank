@@ -1,9 +1,10 @@
-package com.barclays.orchestrator.configuration;
+/*package com.barclays.orchestrator.configuration;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.internals.Sender;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,11 +24,7 @@ public class KafkaProducerConfig {
 
 	@Bean
 	public ProducerFactory<String, InternalService> producerFactory() {
-		Map<String, Object> configProps = new HashMap<>();
-		configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
-		configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-		configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-		return new DefaultKafkaProducerFactory<>(configProps);
+		return new DefaultKafkaProducerFactory<>(producerConfigs());
 	}
 
 	@Bean
@@ -35,4 +32,15 @@ public class KafkaProducerConfig {
 		return new KafkaTemplate<>(producerFactory());
 	}
 
-}
+	@Bean
+	public Map<String, Object> producerConfigs() {
+		Map<String, Object> props = new HashMap<>();
+		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
+		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+
+		return props;
+	}
+
+
+}*/
