@@ -9,4 +9,5 @@ public class DispatcherApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DispatcherApplication.class, args);
 	}
+
 }
