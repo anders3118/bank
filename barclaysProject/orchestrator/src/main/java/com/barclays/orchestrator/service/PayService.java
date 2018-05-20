@@ -9,17 +9,20 @@ import com.barclays.orchestrator.model.InternalService;
 //@RestController
 public class PayService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(PayService.class);
-
 	public PayService() {
 		super();
 	}
+	
+	
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(PayService.class);
+	
 
 	public InternalService PayServiceOrch(ExternalService externalService, int serviceType) {
 		LOGGER.info("Construyendo Pago de Servicios");
 		InternalService internalService = new InternalService(externalService, serviceType);
 		LOGGER.info("Enviando a KafkaServer");
-		// kafkaSender.send("123");
+		//kafkaSender.send("123");
 		return internalService;
 	}
 

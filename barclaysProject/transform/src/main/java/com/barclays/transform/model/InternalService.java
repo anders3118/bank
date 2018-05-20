@@ -1,15 +1,12 @@
 /**
  * 
  */
-package com.barclays.orchestrator.model;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+package com.barclays.transform.model;
 
 /**
  * @author marco.caipe
  *
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class InternalService {
 
 	/**
