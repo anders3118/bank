@@ -1,43 +1,50 @@
 {
-    "services":[
-        {
-            "id":1,
-            "name":"agua",
-            "description":"Servicio de Agua",
-            "endPoint":"https://www.google.com/**",
-            "protocol":"REST",
-            "method":"GET",
-            "enabled":true
-        },
-
-        {
-           "id":2,
-            "name":"electricidad",
-            "description":"Servicio de Electricidad",
-            "endPoint":"https://www.google.com/**",
-            "protocol":"REST",
-            "method":"POST",
-            "enabled":true
-        },
-
-        {
-           "id":3,
-            "name":"telefono",
-            "description":"Servicio de telefonia",
-            "endPoint":"https://www.google.com/**",
-            "protocol":"REST",
-            "method":"GET",
-            "enabled":true
-        },
-
-        {
-           "id":4,
-            "name":"gas",
-            "description":"Servicio de gas",
-            "endPoint":"https://www.google.com/**",
-            "protocol":"REST",
-            "method":"POST",
-            "enabled":true
-        }
-    ]
+	"providers": [
+		{
+			"id": "1-C",
+			"name": "agua",
+			"description": "Servicio de consulta de factura acueducto",
+			"soap": {
+				"endpoint": "http://localhost:7070/w1-soap-svr/PagosServiceService?wsdl",
+				"targetNameSpace": "http://www.servicios.co/pagos/schemas",
+				"serviceName": "PagosServiceService",
+				"servicePort": "PagosInerface",
+				"operation": "Cosultar"
+			},
+			"enabled": true
+		},
+		{
+			"id": "1-P",
+			"name": "agua",
+			"description": "Servicio de pago de factura acueducto",
+			"soap": {
+				"endpoint": "http://localhost:7070/w1-soap-svr/PagosServiceService?wsdl",
+				"targetNameSpace": "http://www.servicios.co/pagos/schemas",
+				"serviceName": "PagosServiceService",
+				"servicePort": "PagosInerface",
+				"operation": "Cosultar"
+			},
+			"enabled": true
+		},
+		{
+			"id": "2-P",
+			"name": "electricidad",
+			"description": "Servicio de pago de factura de Electricidad",
+			"rest": {
+				"endPoint": "http://localhost:9090/servicios/pagos/v1/payments/{id}",
+				"method": "POST"
+			},
+			"enabled": true
+		},
+		{
+			"id": "2-C",
+			"name": "electricidad",
+			"description": "Servicio consulta de factura de Electricidad",
+			"rest": {
+				"endPoint": "http://localhost:9090/servicios/pagos/v1/payments/{id}",
+				"method": "GET"
+			},
+			"enabled": true
+		}
+	]
 }
