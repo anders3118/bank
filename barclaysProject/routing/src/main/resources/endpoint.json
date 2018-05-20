@@ -1,9 +1,10 @@
 {
 	"providers": [
 		{
-			"id": "1-C",
+			"id": 111,
 			"name": "agua",
 			"description": "Servicio de consulta de factura acueducto",
+			"operation": "consulta",
 			"soap": {
 				"endpoint": "http://localhost:7070/w1-soap-svr/PagosServiceService?wsdl",
 				"targetNameSpace": "http://www.servicios.co/pagos/schemas",
@@ -14,35 +15,38 @@
 			"enabled": true
 		},
 		{
-			"id": "1-P",
+			"id": 111,
 			"name": "agua",
 			"description": "Servicio de pago de factura acueducto",
+			"operation": "pago",
 			"soap": {
 				"endpoint": "http://localhost:7070/w1-soap-svr/PagosServiceService?wsdl",
 				"targetNameSpace": "http://www.servicios.co/pagos/schemas",
 				"serviceName": "PagosServiceService",
 				"servicePort": "PagosInerface",
-				"operation": "Cosultar"
+				"operation": "Pagar"
 			},
 			"enabled": true
 		},
 		{
-			"id": "2-P",
-			"name": "electricidad",
-			"description": "Servicio de pago de factura de Electricidad",
-			"rest": {
-				"endPoint": "http://localhost:9090/servicios/pagos/v1/payments/{id}",
-				"method": "POST"
-			},
-			"enabled": true
-		},
-		{
-			"id": "2-C",
+			"id": 444,
 			"name": "electricidad",
 			"description": "Servicio consulta de factura de Electricidad",
+			"operation": "consulta",
 			"rest": {
 				"endPoint": "http://localhost:9090/servicios/pagos/v1/payments/{id}",
 				"method": "GET"
+			},
+			"enabled": true
+		},
+		{
+			"id": 444,
+			"name": "electricidad",
+			"description": "Servicio de pago de factura de Electricidad",
+			"operation": "pago",
+			"rest": {
+				"endPoint": "http://localhost:9090/servicios/pagos/v1/payments/{id}",
+				"method": "POST"
 			},
 			"enabled": true
 		}
