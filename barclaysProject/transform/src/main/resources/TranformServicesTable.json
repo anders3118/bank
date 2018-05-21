@@ -2,44 +2,88 @@
 	"name":"routingFile",
 	"services": [
 		{
-			"service": 33585,
+			"service": 111,
 			"operation": "Consulta",
-			"transformName": "33585_Get_Transformation.xsl"
+			"operationType":"Response",
+			"transformName": "111_Consulta_Transformation_Response.xsl"
 		},
 		{
-			"service": 33585,
+			"service": 111,
 			"operation": "Pago",
-			"transformName": "33585_Post_Transformation.xsl"
+			"operationType":"Request",
+			"transformName": "111_Post_Transformation_Request.xsl"
 		},
 		{
-			"service": 44593,
+			"service": 111,
+			"operation": "Pago",
+			"operationType":"Response",
+			"transformName": "111_Post_Transformation_Response.xsl"
+		},
+		{
+			"service": 222,
 			"operation": "Consulta",
-			"transformName": "44593_Consulta_Transformation.xsl"
+			"operationType":"Request",
+			"transformName": "222_Consulta_Transformation_Request.xsl"
 		},
 		{
-			"service": 44593,
-			"operation": "Pago",
-			"transformName": "44593_Pago_Transformation.xsl"
-		},
-		{
-			"service": 56890,
+			"service": 222,
 			"operation": "Consulta",
-			"transformName": "56890_Pago_Transformation.xsl"
+			"operationType":"Response",
+			"transformName": "222_Consulta_Transformation_Response.xsl"
 		},
 		{
-			"service": 56890,
+			"service": 222,
 			"operation": "Pago",
-			"transformName": "56890_Consulta_Transformation.xsl"
+			"operationType":"Request",
+			"transformName": "222_Pago_Transformation_Request.xsl"
 		},
 		{
-			"service": 67042,
+			"service": 222,
+			"operation": "Pago",
+			"operationType":"Response",
+			"transformName": "222_Pago_Transformation_Response.xsl"
+		},
+		{
+			"service": 444,
 			"operation": "Consulta",
-			"transformName": "67042_Pago_Transformation.xsl"
+			"operationType":"Request",
+			"transformName": "444_Consulta_Transformation_Request.xsl"
 		},
 		{
-			"service": 67042,
+			"service": 444,
+			"operation": "Consulta",
+			"operationType":"Response",
+			"transformName": "444_Consulta_Transformation_Response.xsl"
+		},
+		{
+			"service": 444,
 			"operation": "Pago",
-			"transformName": "67042_Post_Transformation.xsl"
+			"operationType":"Request",
+			"transformName": "444_Pago_Transformation_Request.xsl"
+		},
+		{
+			"service": 444,
+			"operation": "Pago",
+			"operationType":"Response",
+			"transformName": "444_Pago_Transformation_Response.xsl"
+		},
+		{
+			"service": 333,
+			"operation": "Consulta",
+			"operationType":"Response",
+			"transformName": "333_Consulta_Transformation_Response.xsl"
+		},
+		{
+			"service": 333,
+			"operation": "Pago",
+			"operationType":"Request",
+			"transformName": "333_Post_Transformation_Request.xsl"
+		},
+		{
+			"service": 333,
+			"operation": "Pago",
+			"operationType":"Response",
+			"transformName": "333_Post_Transformation_Resposne.xsl"
 		}
 	]
 }

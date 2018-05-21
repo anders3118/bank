@@ -38,7 +38,6 @@ public class ExternalServiceController {
 		ResponseEntity<ExternalServiceResponse> response = null;
 		PayService payService = new PayService();
 		InternalService internalService = payService.PayServiceOrch(externalService, serviceType);
-		//kafkaSender.send(internalService.toString());
 		kafkaSender.send(internalService.toString());
 		response = new ResponseEntity<ExternalServiceResponse>( new ExternalServiceResponse(1234567889, "Pagado"), HttpStatus.OK);
 		return response;

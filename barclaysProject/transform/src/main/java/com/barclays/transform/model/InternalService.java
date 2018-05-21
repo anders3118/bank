@@ -12,25 +12,25 @@ public class InternalService {
 	/**
 	 * 
 	 */
-	public ExternalService externalService;
+	public InternalRequest internalRequest;
 	public int serviceType;
 
 	public InternalService() {
 		super();
 	}
 
-	public InternalService(ExternalService externalService, int serviceType) {
+	public InternalService(InternalRequest internalRequest, int serviceType) {
 		super();
-		this.externalService = externalService;
+		this.internalRequest = internalRequest;
 		this.serviceType = serviceType;
 	}
 
-	public ExternalService getExternalService() {
-		return externalService;
+	public InternalRequest getExternalService() {
+		return internalRequest;
 	}
 
-	public void setExternalService(ExternalService externalService) {
-		this.externalService = externalService;
+	public void setExternalService(InternalRequest internalRequest) {
+		this.internalRequest = internalRequest;
 	}
 
 	public int getServiceType() {
@@ -43,8 +43,9 @@ public class InternalService {
 
 	@Override
 	public String toString() {
-		return "{ externalService:{serviceId:" + externalService.getServiceId() + "},serviceType:" + serviceType
-				+ "}";
+		return "{ \"internalRequest\":{\"operation\":\"" + internalRequest.getOperation() + "\", \"message\":\""
+				+ internalRequest.getMessage() + "\",\"messageType\":\"" + internalRequest.getMessageType()
+				+ "\"},\"serviceType\":" + serviceType + "}";
 	}
 
 }
