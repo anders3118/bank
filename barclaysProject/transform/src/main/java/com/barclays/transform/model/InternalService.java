@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.barclays.orchestrator.model;
+package com.barclays.transform.model;
 
 /**
  * @author marco.caipe
@@ -43,7 +43,7 @@ public class InternalService {
 
 	@Override
 	public String toString() {
-		return "{\"internalRequest\":{\"operation\":\"" + internalRequest.getOperation() + "\", \"message\":\""
+		return "{ \"internalRequest\":{\"operation\":\"" + internalRequest.getOperation() + "\", \"message\":\""
 				+ internalRequest.getMessage() + "\",\"messageType\":\"" + internalRequest.getMessageType()
 				+ "\"},\"serviceType\":" + serviceType + "}";
 	}

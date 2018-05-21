@@ -1,23 +1,28 @@
 package com.barclays.dispatcher.clientservice;
 
+import java.io.StringReader;
+
 import javax.xml.namespace.QName;
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPBody;
-import javax.xml.soap.SOAPEnvelope;
+import javax.xml.soap.SOAPBodyElement;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.ws.Dispatch;
 import javax.xml.ws.Service;
 import javax.xml.ws.soap.SOAPBinding;
 
 import com.barclays.dispatcher.exception.DispatcherException;
 import com.barclays.dispatcher.message.routing.ProviderType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class SOAPClient implements IClientService {
 
 	@Override
-	public Object callService(ProviderType provider, String payload) {
+	public String callService(ProviderType provider, String payload) {
 		try {
+			ObjectMapper mapper = new ObjectMapper();
 
 			QName qServiceName = new QName(provider.getSoap().getTargetNameSpace(),
 					provider.getSoap().getServiceName());
@@ -35,19 +40,19 @@ public class SOAPClient implements IClientService {
 			SOAPMessage message = messageFactory.createMessage();
 
 			SOAPPart soapPart = message.getSOAPPart();
-			SOAPEnvelope envelope = soapPart.getEnvelope();
-			SOAPBody body = envelope.getBody();
 
-			// StreamSource source = new StreamSource(new StringReader(requestData));
-			// soapPart.setContent(source);
-
-			body.getFirstChild().setTextContent(payload);
+			StreamSource source = new StreamSource(new StringReader(payload));
+			soapPart.setContent(source);
 
 			message.saveChanges();
 			SOAPMessage response = (SOAPMessage) dispatch.invoke(message);
 
-			return response;
+			SOAPBody soapBody = response.getSOAPBody();
+			SOAPBodyElement bodyElement = (SOAPBodyElement) soapBody.getChildElements().next();
+
+			return  mapper.writeValueAsString(bodyElement);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DispatcherException("Ocurrió un error ejecutar cliente SOAP", e);
 		}
 	}

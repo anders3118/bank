@@ -15,5 +15,5 @@ public interface IClientService {
 	 * @param payload
 	 * @return
 	 */
-	Object callService(ProviderType provider, String payload);
+	String callService(ProviderType provider, String payload);
 }

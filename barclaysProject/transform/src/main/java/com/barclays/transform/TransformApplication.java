@@ -1,13 +1,13 @@
-package com.barclays.dispatcher;
+package com.barclays.transform;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DispatcherApplication {
+public class TransformApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DispatcherApplication.class, args);
+		SpringApplication.run(TransformApplication.class, args);
 	}
 
 }
