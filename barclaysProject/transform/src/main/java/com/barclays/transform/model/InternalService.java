@@ -25,11 +25,11 @@ public class InternalService {
 		this.serviceType = serviceType;
 	}
 
-	public InternalRequest getExternalService() {
+	public InternalRequest getInternalRequest() {
 		return internalRequest;
 	}
 
-	public void setExternalService(InternalRequest internalRequest) {
+	public void setInternalRequest(InternalRequest internalRequest) {
 		this.internalRequest = internalRequest;
 	}
 

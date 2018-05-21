@@ -15,17 +15,20 @@ public class Service {
 	public int service;
 	public String operation;
 	public String operationType;
+	public String connectionType;
 	public String transformName;
+	
 
 	public Service() {
 		super();
 	}
 
-	public Service(int service, String operation, String operationType, String transformName) {
+	public Service(int service, String operation, String operationType, String connectionType, String transformName) {
 		super();
 		this.service = service;
 		this.operation = operation;
 		this.operationType = operationType;
+		this.connectionType = connectionType;
 		this.transformName = transformName;
 	}
 
@@ -51,6 +54,14 @@ public class Service {
 
 	public void setOperationType(String operationType) {
 		this.operationType = operationType;
+	}
+
+	public String getConnectionType() {
+		return connectionType;
+	}
+
+	public void setConnectionType(String connectionType) {
+		this.connectionType = connectionType;
 	}
 
 	public String getTransformName() {

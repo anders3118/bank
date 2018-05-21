@@ -1,12 +1,12 @@
 /**
  * 
- */
+ *//*
 package com.barclays.transform.configuration;
 
-/**
+*//**
  * @author marco.caipe
  *
- */
+ *//*
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,3 +51,4 @@ public class KafkaConsumerConfig {
 	}
 
 }
+*/

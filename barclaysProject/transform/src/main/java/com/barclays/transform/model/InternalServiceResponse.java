@@ -44,7 +44,7 @@ public class InternalServiceResponse {
 	
 	@Override
 	public String toString() {
-		return "{\"internalResponse\":{\"message\":\"" + internalResponse.getMessage() + "\",\"messageType\":\""
+		return "{\"internalResponse\":{\"message\":" + internalResponse.getMessage() + ",messageType\":\""
 				+ internalResponse.getMessageType() + "\"},\"serviceType\":" + serviceType + "}";
 	}
 

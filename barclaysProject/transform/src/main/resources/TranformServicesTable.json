@@ -5,6 +5,7 @@
 			"service": 111,
 			"operation": "Consulta",
 			"operationType":"Response",
+			"connectionType":"REST",
 			"transformName": "111_Consulta_Transformation_Response.xsl"
 		},
 		{
@@ -17,72 +18,84 @@
 			"service": 111,
 			"operation": "Pago",
 			"operationType":"Response",
+			"connectionType":"REST",
 			"transformName": "111_Post_Transformation_Response.xsl"
 		},
 		{
 			"service": 222,
 			"operation": "Consulta",
 			"operationType":"Request",
+			"connectionType":"SOAP",
 			"transformName": "222_Consulta_Transformation_Request.xsl"
 		},
 		{
 			"service": 222,
 			"operation": "Consulta",
 			"operationType":"Response",
+			"connectionType":"SOAP",
 			"transformName": "222_Consulta_Transformation_Response.xsl"
 		},
 		{
 			"service": 222,
 			"operation": "Pago",
 			"operationType":"Request",
+			"connectionType":"SOAP",
 			"transformName": "222_Pago_Transformation_Request.xsl"
 		},
 		{
 			"service": 222,
 			"operation": "Pago",
 			"operationType":"Response",
+			"connectionType":"SOAP",
 			"transformName": "222_Pago_Transformation_Response.xsl"
 		},
 		{
 			"service": 444,
 			"operation": "Consulta",
 			"operationType":"Request",
+			"connectionType":"SOAP",
 			"transformName": "444_Consulta_Transformation_Request.xsl"
 		},
 		{
 			"service": 444,
 			"operation": "Consulta",
 			"operationType":"Response",
+			"connectionType":"SOAP",
 			"transformName": "444_Consulta_Transformation_Response.xsl"
 		},
 		{
 			"service": 444,
 			"operation": "Pago",
 			"operationType":"Request",
+			"connectionType":"SOAP",
 			"transformName": "444_Pago_Transformation_Request.xsl"
 		},
 		{
 			"service": 444,
 			"operation": "Pago",
 			"operationType":"Response",
+			"connectionType":"SOAP",
 			"transformName": "444_Pago_Transformation_Response.xsl"
 		},
 		{
 			"service": 333,
 			"operation": "Consulta",
 			"operationType":"Response",
+			"connectionType":"REST",
 			"transformName": "333_Consulta_Transformation_Response.xsl"
 		},
 		{
 			"service": 333,
 			"operation": "Pago",
 			"operationType":"Request",
+			"connectionType":"REST",
 			"transformName": "333_Post_Transformation_Request.xsl"
 		},
 		{
 			"service": 333,
 			"operation": "Pago",
 			"operationType":"Response",
+			"connectionType":"REST",
 			"transformName": "333_Post_Transformation_Resposne.xsl"
 		}
 	]
