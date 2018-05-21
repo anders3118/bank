@@ -2,8 +2,6 @@ package com.barclays.orchestrator.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,37 +9,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.barclays.orchestrator.model.ExternalService;
-import com.barclays.orchestrator.model.ExternalServiceResponse;
-import com.barclays.orchestrator.model.InternalService;
-import com.barclays.orchestrator.service.KafkaSender;
-import com.barclays.orchestrator.service.PayService;
+import com.barclays.orchestrator.message.external.PaymentResponseType;
+import com.barclays.orchestrator.message.external.PaymentType;
 
 @RestController
-@RequestMapping(value = "/barclays/")
+@RequestMapping(value = { "/paymentService" })
 public class ExternalServiceController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ExternalServiceController.class);
 
-	@Autowired
-	KafkaSender kafkaSender;
+	@RequestMapping(value = { "/query/{idFactura}" }, method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<PaymentType> queryService(@PathVariable(required = true) Integer idFactura) {
 
-	public ExternalServiceController() {
-		// TODO Auto-generated constructor stub
+		LOGGER.info("Recibiendo petición para pago de servicios");
+		ResponseEntity<PaymentType> response = null;
+
+		return response;
 	}
 
-	@RequestMapping(value = {
-			"/pagoServicios/{serviceType}" }, method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-	public ResponseEntity<ExternalServiceResponse> payPublicService(@PathVariable("serviceType") int serviceType,
-			@RequestBody(required = true) ExternalService externalService) {
-		LOGGER.info("Recibiendo petición para pago de servicios");
-		ResponseEntity<ExternalServiceResponse> response = null;
-		PayService payService = new PayService();
-		InternalService internalService = payService.PayServiceOrch(externalService, serviceType);
-		kafkaSender.send(internalService.toString());
-		response = new ResponseEntity<ExternalServiceResponse>( new ExternalServiceResponse(1234567889, "Pagado"), HttpStatus.OK);
-		return response;
+	@RequestMapping(value = { "/payment" }, method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<PaymentResponseType> paymentService(@RequestBody(required = true) PaymentType payment) {
 
+		LOGGER.info("Recibiendo petición para pago de servicios");
+		ResponseEntity<PaymentResponseType> response = null;
+
+		return response;
 	}
 
 }

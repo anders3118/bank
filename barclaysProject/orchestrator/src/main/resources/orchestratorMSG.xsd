@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://barclays.com/message/bussines/services"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://barclays.com/message/bussines/services">
+
+	<complexType name="PaymentType">
+		<sequence>
+			<element name="serviceId" type="int" minOccurs="1" maxOccurs="1"></element>
+			<element name="value" type="double" minOccurs="1" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="PaymentResponseType">
+		<sequence>
+			<element name="serviceId" type="int" minOccurs="1" maxOccurs="1"></element>
+			<element name="status" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+</schema>

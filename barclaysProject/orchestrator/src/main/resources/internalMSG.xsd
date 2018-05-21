@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://barclays.com/message/bussines/services"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://barclays.com/message/bussines/services">
+
+	<complexType name="InternalServiceRQType">
+		<sequence>
+			<element name="internalRequest" type="tns:InternalRequestType"
+				minOccurs="1" maxOccurs="1"></element>
+			<element name="serviceType" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="InternalRequestType">
+		<sequence>
+			<element name="operation" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+			<element name="message" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+			<element name="massageType" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="InternalServiceRSType">
+		<sequence>
+			<element name="internalResponse" type="tns:InternalResponseType"
+				minOccurs="1" maxOccurs="1"></element>
+			<element name="serviceType" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="InternalResponseType">
+		<sequence>
+			<element name="message" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+			<element name="massageType" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+</schema>
