@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
 @RestController
 public class RoutingController implements IRoutingController {
@@ -34,7 +35,7 @@ public class RoutingController implements IRoutingController {
     }
 
    @RequestMapping("/v1/{id}/{operation}")
-   public ResponseEntity<ProviderType> operation(@PathVariable("id") Integer id, @PathVariable("operation") String operation, HttpServletRequest request) throws NoDataFound  ,  FileNotFoundException {
+   public ResponseEntity<ProviderType> operation(@PathVariable("id") Integer id, @PathVariable("operation") String operation, HttpServletRequest request) throws NoDataFound  ,  FileNotFoundException, URISyntaxException {
       ResponseEntity<ProviderType>  response = null;
       try {
          ProviderType provider = iOperation.getProviader(id, operation);

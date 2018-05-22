@@ -1,6 +1,5 @@
-#Docker file 
 FROM openjdk
 ENV SERVER_PORT=9222
-COPY target/routing-*.jar /app/BarclaysRoutingSerices.jar
+COPY /target/routing-*.jar /app/BarclaysRoutingSerices.jar
 EXPOSE $SERVER_PORT
 CMD ["java", "-jar", "/app/BarclaysRoutingSerices.jar"]
