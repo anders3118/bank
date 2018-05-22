@@ -44,14 +44,14 @@ public class PaymentType
 {
 
     private final static long serialVersionUID = 1L;
-    protected int serviceId;
+    protected Integer serviceId;
     protected double value;
 
     /**
      * Gets the value of the serviceId property.
      * 
      */
-    public int getServiceId() {
+    public Integer getServiceId() {
         return serviceId;
     }
 
@@ -59,7 +59,7 @@ public class PaymentType
      * Sets the value of the serviceId property.
      * 
      */
-    public void setServiceId(int value) {
+    public void setServiceId(Integer value) {
         this.serviceId = value;
     }
 
