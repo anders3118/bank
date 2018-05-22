@@ -4,3 +4,9 @@ server:
   port: ${SERVER_PORT:9111}
   servlet:
     contextPath: /barclays
+    
+    
+#Application Environment
+enpoint:
+  routing: ${ENDPOINT_ROUTING}
+  dispatcher: ${ENDPOINT_DISPATCHER}

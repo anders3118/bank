@@ -1,10 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema targetNamespace="http://barclays.com/message/bussines/services"
-	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://barclays.com/message/bussines/services">
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://barclays.com/message/bussines/services">
 
-    <element name="provider" type="tns:ProviderType"></element>
+	<complexType name="InternalServiceRQType">
+		<sequence>
+			<element name="internalRequest" type="tns:InternalRequestType"
+				minOccurs="1" maxOccurs="1"></element>
+			<element name="serviceType" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+		</sequence>
+	</complexType>
 
-    <complexType name="ProviderType">
+	<complexType name="InternalRequestType">
+		<sequence>
+			<element name="operation" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+			<element name="message" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+			<element name="massageType" type="string" minOccurs="1"
+				maxOccurs="1"></element>				
+			<element name="provider" type="tns:ProviderType" minOccurs="1"
+				maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="InternalServiceRSType">
+		<sequence>
+			<element name="internalResponse" type="tns:InternalResponseType"
+				minOccurs="1" maxOccurs="1"></element>
+			<element name="serviceType" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="InternalResponseType">
+		<sequence>
+			<element name="message" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+			<element name="massageType" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="ProviderType">
     	<sequence>
     		<element name="id" type="int" minOccurs="1" maxOccurs="1"></element>
     		<element name="name" type="string" minOccurs="1" maxOccurs="1"></element>
@@ -29,5 +68,5 @@
     		<element name="servicePort" type="string" minOccurs="1" maxOccurs="1"></element>
     		<element name="operation" type="string" minOccurs="0" maxOccurs="1"></element>
     	</sequence>
-    </complexType>    
+    </complexType>
 </schema>

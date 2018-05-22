@@ -9,9 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.barclays.dispatcher.exception.DispatcherException;
-import com.barclays.dispatcher.message.routing.ProviderType;
+import com.barclays.dispatcher.message.ProviderType;
 
-public class RESTClient implements IClientService {
+public class RESTClient {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RESTClient.class);
 
@@ -21,8 +21,9 @@ public class RESTClient implements IClientService {
 		this.restTemplate = new RestTemplate();
 	}
 
-	public String callService(ProviderType provider, String payload) {
+	public <T> T callService(ProviderType provider, String payload, Class<?> clazz) {
 		ResponseEntity<String> response = null;
+		LOGGER.info(String.format("Consumiendo servicio %s", provider.getRest().getEndPoint()));
 
 		try {
 
@@ -45,11 +46,12 @@ public class RESTClient implements IClientService {
 		}
 	}
 
-	private String getBody(ResponseEntity<String> response) {
+	@SuppressWarnings("unchecked")
+	private <T> T getBody(ResponseEntity<?> response) {
 		LOGGER.info(
 				String.format("Se obtuvo código de respuesta %d al llamar al servicio", response.getStatusCodeValue()));
 		if (200 == response.getStatusCodeValue()) {
-			return response.getBody();
+			return (T) response.getBody();
 		} else {
 			throw new DispatcherException(String.format("Se obtuvo código de respuesta %d al llamar al servicio",
 					response.getStatusCodeValue()));

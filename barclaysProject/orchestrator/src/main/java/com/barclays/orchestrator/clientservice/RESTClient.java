@@ -6,11 +6,13 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.barclays.dispatcher.exception.DispatcherException;
-import com.barclays.dispatcher.message.routing.ProviderType;
+import com.barclays.orchestrator.exception.OrchestratorException;
+import com.barclays.orchestrator.message.internal.ProviderType;
 
+@Component
 public class RESTClient {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RESTClient.class);
@@ -21,37 +23,40 @@ public class RESTClient {
 		this.restTemplate = new RestTemplate();
 	}
 
-	public String callService(ProviderType provider, String payload) {
-		ResponseEntity<String> response = null;
+	@SuppressWarnings("unchecked")
+	public <T> T callService(ProviderType provider, Object payload, Class<?> clazz) {
+		ResponseEntity<T> response = null;
 
 		try {
 
 			if ("GET".equalsIgnoreCase(provider.getRest().getMethod())) {
-				response = restTemplate.getForEntity(provider.getRest().getEndPoint(), String.class);
+				response = (ResponseEntity<T>) restTemplate.getForEntity(provider.getRest().getEndPoint(), clazz);
 				return getBody(response);
 			} else if ("POST".equalsIgnoreCase(provider.getRest().getMethod())) {
 				HttpHeaders headers = new HttpHeaders();
 				headers.setContentType(MediaType.APPLICATION_JSON);
-				HttpEntity<String> entity = new HttpEntity<String>(payload, headers);
-				response = restTemplate.postForEntity(provider.getRest().getEndPoint(), entity, String.class);
+				HttpEntity<Object> entity = new HttpEntity<>(payload, headers);
+				response = (ResponseEntity<T>) restTemplate.postForEntity(provider.getRest().getEndPoint(), entity,
+						clazz);
 				return getBody(response);
 			}
 
-			throw new DispatcherException(
+			throw new OrchestratorException(
 					String.format("Método http %s no configurado", provider.getRest().getMethod()));
 
 		} catch (Exception e) {
-			throw new DispatcherException("Ocurrió un error ejecutar cliente REST", e);
+			throw new OrchestratorException("Ocurrió un error ejecutar cliente REST", e);
 		}
 	}
 
-	private String getBody(ResponseEntity<String> response) {
+	@SuppressWarnings("unchecked")
+	private <T> T getBody(ResponseEntity<?> response) {
 		LOGGER.info(
 				String.format("Se obtuvo código de respuesta %d al llamar al servicio", response.getStatusCodeValue()));
 		if (200 == response.getStatusCodeValue()) {
-			return response.getBody();
+			return (T) response.getBody();
 		} else {
-			throw new DispatcherException(String.format("Se obtuvo código de respuesta %d al llamar al servicio",
+			throw new OrchestratorException(String.format("Se obtuvo código de respuesta %d al llamar al servicio",
 					response.getStatusCodeValue()));
 		}
 	}

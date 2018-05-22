@@ -1,13 +1,10 @@
-spring:
-  kafka:
-    consumer:
-      auto-offset-reset: earliest
-      group-id: boot
-
-kafka:
-  topic:
-    boot: boot.t
+#Server
+server:
+  port: ${SERVER_PORT:9333}
+  servlet:
+    contextPath: /barclays/dispatcher
     
-jsa:
-  kafka:
-    bootstrap-servers: localhost:9092    
+    
+#Application Environment
+enpoint:
+  trans: ${ENDPOINT_TRANS}

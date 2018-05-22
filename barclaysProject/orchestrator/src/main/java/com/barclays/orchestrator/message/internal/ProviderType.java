@@ -2,11 +2,11 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2018.05.20 a las 12:49:32 PM COT 
+// Generado el: 2018.05.21 a las 10:07:08 PM COT 
 //
 
 
-package com.barclays.dispatcher.message.routing;
+package com.barclays.orchestrator.message.internal;
 
 import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
