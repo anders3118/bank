@@ -19,7 +19,7 @@ public class CreateIMessageResponse {
 		super();
 	}
 
-	public String CreateMessageResponse(String messageResponse, String messageType, int serviceType) {
+	public InternalServiceResponse CreateMessageResponse(String messageResponse, String messageType, int serviceType) {
 		InternalResponse internalResponse = new InternalResponse();
 		internalResponse.setMessage(messageResponse);
 		internalResponse.setMessageType(messageType);
@@ -27,9 +27,7 @@ public class CreateIMessageResponse {
 		InternalServiceResponse internalServiceResponse = new InternalServiceResponse();
 		internalServiceResponse.setInternalResponse(internalResponse);
 		internalServiceResponse.setServiceType(serviceType);
-		String messageToSend = internalServiceResponse.toString();
-		System.out.println(messageToSend);
-		return messageToSend;
+		return internalServiceResponse;
 	}
 
 

@@ -23,13 +23,18 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.json.JSONObject;
+import org.json.XML;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import com.barclays.transform.model.ListServices;
 import com.barclays.transform.model.Service;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 /**
  * @author marco.caipe
@@ -48,60 +53,80 @@ public class TransformService {
 
 	public String TransformXSLT(int serviceType, String operation, String operationType, String message) {
 		ClassLoader classLoader = getClass().getClassLoader();
-		List<Service> serviceListTransform = getTransformTable();
-		String transformTemplate = SetTransformTemplate(serviceListTransform, serviceType, operation, operationType);
 		String transformResult = null;
-
 		try {
+			List<Service> serviceListTransform = getTransformTable();
+			String transformTemplate = SetTransformTemplate(serviceListTransform, serviceType, operation,
+					operationType);
+			String connectionType = SetConnectionType(serviceListTransform, serviceType, operation, operationType);
+			String messageSource = null;
 			TransformerFactory factory = TransformerFactory.newInstance();
+
+			if (connectionType.equals("REST")) {
+				Gson g = new Gson();
+				String body = g.toJson(message);
+				body = body.substring(1, body.length() - 1);
+				body = body.replace("\\", "");
+				JSONObject json = new JSONObject(body);
+				messageSource = XML.toString(json);
+				messageSource = "<root>" + messageSource + "</root>";
+			} else {
+				String messagebody = message;
+				messagebody = messagebody.replace("\\", "");
+				messageSource = messagebody;
+			}
 
 			Source xslt = new StreamSource(new File(classLoader.getResource(transformTemplate).getFile()));
 			Transformer transformer = factory.newTransformer(xslt);
-			
-			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();  
-			DocumentBuilder builder; 
-			builder = documentBuilderFactory.newDocumentBuilder();  
-		    Document document = builder.parse(new InputSource(new StringReader(message))); 
-			
-			//Source source = new StreamSource(new StringReader(message));
-		    Source source = new DOMSource(document);
-		    StringWriter outWriter = new StringWriter();
+
+			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder;
+			builder = documentBuilderFactory.newDocumentBuilder();
+			Document document = builder.parse(new InputSource(new StringReader(messageSource)));
+
+			// Source source = new StreamSource(new StringReader(message));
+			Source source = new DOMSource(document);
+			StringWriter outWriter = new StringWriter();
 			StreamResult result = new StreamResult(outWriter);
 			transformer.transform(source, result);
-			StringBuffer sb = outWriter.getBuffer(); 
+			StringBuffer sb = outWriter.getBuffer();
 			String finalstring = sb.toString();
 			transformResult = finalstring;
+
+			if (connectionType.equals("REST")) {
+				JSONObject xmlJSONObj = XML.toJSONObject(transformResult);
+				transformResult = xmlJSONObj.toString();
+				System.out.println(transformResult);
+			}
 		} catch (TransformerConfigurationException e) {
-			// TODO Auto-generated catch block
+			transformResult = "Exception: se produjo un error inesperado";
 			e.printStackTrace();
 		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
+			transformResult = "Exception: se produjo un error inesperado";
 			e.printStackTrace();
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
+			transformResult = "Exception: se produjo un error inesperado";
 			e.printStackTrace();
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
+			transformResult = "Exception: se produjo un error inesperado";
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			transformResult = "Exception: se produjo un error inesperado";
+			e.printStackTrace();
+		}catch (Exception e) {
+			transformResult = "Exception: se produjo un error inesperado";
 			e.printStackTrace();
 		}
 		return transformResult;
 	}
 
-	public List<Service> getTransformTable() {
+	public List<Service> getTransformTable() throws JsonParseException, JsonMappingException, IOException {
 		ClassLoader classLoader = getClass().getClassLoader();
 		ListServices listServices = null;
 		List<Service> serviceList = null;
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(classLoader.getResource(TRANSFORM_TABLE).getFile()));
-			listServices = new ObjectMapper().readValue(br, ListServices.class);
-			serviceList = listServices.getListServices();
-		} catch (IOException e) {
-			e.getMessage();
-			e.printStackTrace();
-		}
+		BufferedReader br = new BufferedReader(new FileReader(classLoader.getResource(TRANSFORM_TABLE).getFile()));
+		listServices = new ObjectMapper().readValue(br, ListServices.class);
+		serviceList = listServices.getListServices();
 		return serviceList;
 	}
 
@@ -115,6 +140,17 @@ public class TransformService {
 			}
 		}
 		return transformTemplate;
+	}
+
+	public String SetConnectionType(List<Service> services, int serviceType, String operation, String operationType) {
+		String connectionType = null;
+		for (Service service : services) {
+			if (service.getService() == serviceType && service.getOperation().equals(operation)
+					&& service.getOperationType().equals(operationType)) {
+				connectionType = service.getConnectionType();
+			}
+		}
+		return connectionType;
 	}
 
 }

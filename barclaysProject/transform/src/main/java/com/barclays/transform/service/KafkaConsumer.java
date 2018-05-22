@@ -1,6 +1,6 @@
 /**
  * 
- */
+ *//*
 package com.barclays.transform.service;
 
 import org.json.JSONObject;
@@ -13,10 +13,10 @@ import com.barclays.transform.model.InternalRequest;
 import com.barclays.transform.model.InternalService;
 import com.google.gson.Gson;
 
-/**
+*//**
  * @author marco.caipe
  *
- */
+ *//*
 @Component
 public class KafkaConsumer {
 
@@ -29,9 +29,9 @@ public class KafkaConsumer {
 		Gson g = new Gson();
 		InternalService internalService;
 		internalService = g.fromJson(message, InternalService.class);
-		InternalRequest internalRequest = internalService.getExternalService();
+		InternalRequest internalRequest = internalService.getInternalRequest();
 
-		String body = g.toJson(internalRequest.getMessage());
+		//String body = g.toJson(internalRequest.getMessage());
 		String xml = null;
 
 		if (body.contains("<")) {
@@ -48,8 +48,8 @@ public class KafkaConsumer {
 				internalRequest.getOperation(), internalRequest.getMessageType(), xml);
 		transformResult =  transformResult.replace("\"", "\\\"");
 		CreateIMessageResponse createIMessageResponse = new CreateIMessageResponse();
-		String messageToSend = createIMessageResponse.CreateMessageResponse(transformResult,
-				internalRequest.getMessageType(), internalService.getServiceType());
-		kafkaSender.send(messageToSend);
+//		String messageToSend = createIMessageResponse.CreateMessageResponse(transformResult,
+//				internalRequest.getMessageType(), internalService.getServiceType());
+//		kafkaSender.send(messageToSend);
 	}
-}
+}*/
