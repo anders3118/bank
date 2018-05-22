@@ -20,6 +20,7 @@ import com.barclays.orchestrator.message.internal.InternalServiceRQType;
 import com.barclays.orchestrator.message.internal.InternalServiceRSType;
 import com.barclays.orchestrator.message.internal.ProviderType;
 import com.barclays.orchestrator.message.internal.RestType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping(value = { "/paymentService" })
@@ -79,10 +80,8 @@ public class ExternalServiceController {
 					InternalServiceRSType.class);
 
 			LOGGER.info("respuesta del distpacher -> " + internalServiceRS.getInternalResponse().getMessage());
-
-			PaymentType payment = new PaymentType();
-			payment.setServiceId(123);
-			payment.setValue(234.232d);
+			
+			PaymentType payment = new ObjectMapper().readValue(internalServiceRS.getInternalResponse().getMessage(), PaymentType.class);;
 
 			response = new ResponseEntity<>(payment, HttpStatus.OK);
 		} catch (Exception e) {
@@ -94,61 +93,7 @@ public class ExternalServiceController {
 
 	@RequestMapping(value = { "/payment" }, method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<PaymentResponseType> paymentService(@RequestBody(required = true) PaymentType payment) {
-
-		LOGGER.info("Recibiendo petición para pago de servicios");
-		ResponseEntity<PaymentResponseType> response = null;
-
-		try {
-			Integer agreement = Integer.parseInt(payment.getServiceId().toString().substring(0, 3));
-
-			ProviderType routing = new ProviderType();
-			routing.setRest(new RestType());
-
-			routing.getRest().setEndPoint(String.format("%s%s%s%s", endpointRouting, "/", agreement, "/consulta"));
-			routing.getRest().setMethod("GET");
-
-			// Llamar al routing
-			LOGGER.info(String.format("Llamando routing %s ", routing.getRest().getEndPoint()));
-			ProviderType responseRouting = restClient.callService(routing, null, ProviderType.class);
-
-			// Llamar al dispatcher
-			ProviderType dispatcher = new ProviderType();
-			dispatcher.setRest(new RestType());
-			dispatcher.getRest().setEndPoint(endpointDispatcher);
-			dispatcher.getRest().setMethod("POST");
-
-			InternalServiceRQType internalServiceRQ = new InternalServiceRQType();
-			internalServiceRQ.setInternalRequest(new InternalRequestType());
-			internalServiceRQ.getInternalRequest().setMassageType("request");			
-			internalServiceRQ.getInternalRequest().setOperation("consulta");
-			internalServiceRQ.getInternalRequest().setProvider(responseRouting);
-			internalServiceRQ.setServiceType(agreement);
-			
-			if(responseRouting.getRest() != null && responseRouting.getRest().getMethod().equalsIgnoreCase("GET")) {
-				internalServiceRQ.getInternalRequest().setMessage(idFactura.toString());
-			}else {
-				internalServiceRQ.getInternalRequest().setMessage(String.format("{\"serviceId\" : %d}", idFactura));
-			}
-			
-			LOGGER.info(String.format("Llamando dispatcher %s ", dispatcher.getRest().getEndPoint()));
-
-			InternalServiceRSType internalServiceRS = restClient.callService(dispatcher, internalServiceRQ,
-					InternalServiceRSType.class);
-
-			LOGGER.info("respuesta del distpacher -> " + internalServiceRS.getInternalResponse().getMessage());
-
-			PaymentType payment = new PaymentType();
-			payment.setServiceId(123);
-			payment.setValue(234.232d);
-
-			response = new ResponseEntity<>(payment, HttpStatus.OK);
-		} catch (Exception e) {
-			LOGGER.info("ERROR - ", e);
-			response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
-
-		return response;
+		return null;
 	}
 
 }

@@ -78,18 +78,23 @@ public class DispatcherController {
 				providerRS = serviceClient.getSoapClient().callService(provider,
 						internalRS.getInternalResponse().getMessage());
 			}
-
+			
+			
 			/* Call transform for response */
+			String message = providerRS.replace("<?xml version=\\\"1.0\\\" encoding=\\\"UTF-16\\\"?>\\n", "");
+			message = message.replaceAll("\\\\", "");
+			message = message.replaceAll("\\\"<", "<");
+			message = message.replaceAll(">\\\"", ">");
 			InternalServiceRQType internalServiceResposeProvider = new InternalServiceRQType();
 			internalServiceResposeProvider.setInternalRequest(new InternalRequestType());
-			internalServiceResposeProvider.getInternalRequest().setMassageType("response");
-			internalServiceResposeProvider.getInternalRequest().setMessage(providerRS);
-			internalServiceResposeProvider.getInternalRequest().setOperation("consulta");
-			internalServiceResposeProvider.getInternalRequest().setProvider(null);
+			internalServiceResposeProvider.getInternalRequest().setMassageType("Response");
+			internalServiceResposeProvider.getInternalRequest().setMessage(message);
+			internalServiceResposeProvider.getInternalRequest().setOperation("Consulta");
+			internalServiceResposeProvider.getInternalRequest().setProvider(provider);
 			internalServiceResposeProvider.setServiceType(internalServiceRQ.getServiceType());
 
 			LOGGER.info(String.format("Transformando respuesta del proveedor %s", providerRS));
-
+			
 			internalRS = serviceClient.getRestClient().callService(providerTrans, internalServiceResposeProvider,
 					InternalServiceRSType.class);
 
