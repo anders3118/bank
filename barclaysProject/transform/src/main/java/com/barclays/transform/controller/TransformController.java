@@ -5,6 +5,7 @@ package com.barclays.transform.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +36,9 @@ public class TransformController {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Value("${path.to.file}")
+	private String path;
+	
 	@RequestMapping(value = {
 			"/v1" }, method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<InternalServiceResponse> payPublicService(
@@ -50,7 +54,7 @@ public class TransformController {
 		CreateIMessageResponse createIMessageResponse = null;
 		TransformService transformService = new TransformService();
 		String transformResult = transformService.TransformXSLT(internalService.getServiceType(),
-				internalRequest.getOperation(), internalRequest.getMassageType(), internalRequest.getMessage());
+				internalRequest.getOperation(), internalRequest.getMassageType(), internalRequest.getMessage(), path);
 
 		if (!transformResult.contains("Exception")) {
 			createIMessageResponse = new CreateIMessageResponse();

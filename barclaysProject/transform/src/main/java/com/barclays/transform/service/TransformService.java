@@ -3,6 +3,7 @@
  */
 package com.barclays.transform.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -24,10 +25,13 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.json.JSONObject;
 import org.json.XML;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.barclays.transform.controller.TransformController;
 import com.barclays.transform.model.ListServices;
 import com.barclays.transform.model.Service;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -45,12 +49,13 @@ public class TransformService {
 	 * 
 	 */
 	public final String TRANSFORM_TABLE = "TranformServicesTable.json";
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(TransformService.class);
+	
 	public TransformService() {
 		super();
 	}
 
-	public String TransformXSLT(int serviceType, String operation, String operationType, String message) {
+	public String TransformXSLT(int serviceType, String operation, String operationType, String message, String path) {
 		String transformResult = null;
 		try {
 			List<Service> serviceListTransform = getTransformTable();
@@ -74,10 +79,13 @@ public class TransformService {
 				messageSource = messagebody;
 			}
 
-			InputStream inputStream = TransformService.class.getResourceAsStream("/app/"+transformTemplate);
-			Source xslt = new StreamSource(inputStream);
-			Templates cached = factory.newTemplates(xslt);
-			Transformer transformer = cached.newTransformer();
+			LOGGER.info(path + "/" +  transformTemplate);
+			
+			Source xslt = new StreamSource(
+					new File(path + "/" + transformTemplate));
+			LOGGER.info("Paso el file");
+			Templates xsl = factory.newTemplates(xslt);
+			Transformer transformer = xsl.newTransformer();
 
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder;

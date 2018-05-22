@@ -3,3 +3,6 @@ server:
   port: ${SERVER_PORT:9444}
   servlet:
     contextPath: /barclays/transform
+path:
+  to:
+    file: ${PATH_XLST}
