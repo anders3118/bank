@@ -49,9 +49,8 @@ public class SOAPClient {
 			SOAPBody soapBody = response.getSOAPBody();
 			SOAPBodyElement bodyElement = (SOAPBodyElement) soapBody.getChildElements().next();
 
-			return mapper.writeValueAsString(bodyElement);
+			return  mapper.writeValueAsString(bodyElement);
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new DispatcherException("Ocurrió un error ejecutar cliente SOAP", e);
 		}
 	}
