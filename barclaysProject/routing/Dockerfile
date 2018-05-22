@@ -1,5 +1,5 @@
 FROM openjdk
 ENV SERVER_PORT=9222
-COPY /target/routing-*.jar /app/BarclaysRoutingSerices.jar
+COPY /target/routing-*.jar /app/BarclaysRoutingServices.jar
 EXPOSE $SERVER_PORT
-CMD ["java", "-jar", "/app/BarclaysRoutingSerices.jar"]
+CMD ["java", "-jar", "/app/BarclaysRoutingServices.jar"]
