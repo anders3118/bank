@@ -1,5 +1,6 @@
 package com.barclays.routing.model;
 
+import com.barclays.routing.message.ProviderType;
 import com.barclays.routing.model.impl.Provider;
 import com.barclays.routing.util.exception.NoDataFound;
 
@@ -8,5 +9,5 @@ import java.util.Optional;
 
 public interface IOperation {
 
-	public Provider getProviader (String id, String operation) throws NoDataFound , FileNotFoundException;
+	public ProviderType getProviader (Integer id, String operation) throws NoDataFound , FileNotFoundException;
 }

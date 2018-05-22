@@ -55,12 +55,12 @@ public class ProviderType
 {
 
     private final static long serialVersionUID = 1L;
-    protected int id;
+    protected Integer id;
     @XmlElement(required = true)
     protected String name;
     @XmlElement(required = true)
     protected String description;
-    protected boolean enable;
+    private Boolean enable;
     @XmlElement(required = true)
     protected String operation;
     protected RestType rest;
@@ -70,7 +70,7 @@ public class ProviderType
      * Obtiene el valor de la propiedad id.
      * 
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -78,7 +78,7 @@ public class ProviderType
      * Define el valor de la propiedad id.
      * 
      */
-    public void setId(int value) {
+    public void setId(Integer value) {
         this.id = value;
     }
 
@@ -130,21 +130,7 @@ public class ProviderType
         this.description = value;
     }
 
-    /**
-     * Obtiene el valor de la propiedad enable.
-     * 
-     */
-    public boolean isEnable() {
-        return enable;
-    }
 
-    /**
-     * Define el valor de la propiedad enable.
-     * 
-     */
-    public void setEnable(boolean value) {
-        this.enable = value;
-    }
 
     /**
      * Obtiene el valor de la propiedad operation.
@@ -218,4 +204,11 @@ public class ProviderType
         this.soap = value;
     }
 
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
+    }
 }
