@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://barclays.com/message/bussines/services"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://barclays.com/message/bussines/services">
+
+	<complexType name="InternalServiceRQType">
+		<sequence>
+			<element name="internalRequest" type="tns:InternalRequestType"
+				minOccurs="1" maxOccurs="1"></element>
+			<element name="serviceType" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="InternalRequestType">
+		<sequence>
+			<element name="operation" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+			<element name="message" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+			<element name="massageType" type="string" minOccurs="1"
+				maxOccurs="1"></element>				
+			<element name="provider" type="tns:ProviderType" minOccurs="1"
+				maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="InternalServiceRSType">
+		<sequence>
+			<element name="internalResponse" type="tns:InternalResponseType"
+				minOccurs="1" maxOccurs="1"></element>
+			<element name="serviceType" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="InternalResponseType">
+		<sequence>
+			<element name="message" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+			<element name="massageType" type="string" minOccurs="1"
+				maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="ProviderType">
+    	<sequence>
+    		<element name="id" type="int" minOccurs="1" maxOccurs="1"></element>
+    		<element name="name" type="string" minOccurs="1" maxOccurs="1"></element>
+    		<element name="description" type="string" minOccurs="1" maxOccurs="1"></element>
+    		<element name="enable" type="boolean" minOccurs="1" maxOccurs="1"></element>
+    		<element name="operation" type="string" minOccurs="1" maxOccurs="1"></element>
+    		<element name="rest" type="tns:RestType" minOccurs="0" maxOccurs="1"></element>
+    		<element name="soap" type="tns:SoapType" minOccurs="0" maxOccurs="1"></element>    		
+    	</sequence>
+    </complexType>    
+     <complexType name="RestType">
+    	<sequence>
+    		<element name="endPoint" type="string" minOccurs="1" maxOccurs="1"></element>
+    		<element name="method" type="string" minOccurs="1" maxOccurs="1"></element>
+    	</sequence>
+    </complexType>    				
+     <complexType name="SoapType">
+    	<sequence>
+    		<element name="endpoint" type="string" minOccurs="1" maxOccurs="1"></element>
+    		<element name="targetNameSpace" type="string" minOccurs="1" maxOccurs="1"></element>
+    		<element name="serviceName" type="string" minOccurs="1" maxOccurs="1"></element>
+    		<element name="servicePort" type="string" minOccurs="1" maxOccurs="1"></element>
+    		<element name="operation" type="string" minOccurs="0" maxOccurs="1"></element>
+    	</sequence>
+    </complexType>
+</schema>

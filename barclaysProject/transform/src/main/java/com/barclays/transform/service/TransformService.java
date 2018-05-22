@@ -3,10 +3,9 @@
  */
 package com.barclays.transform.service;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.List;
@@ -15,6 +14,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Source;
+import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -25,10 +25,13 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.json.JSONObject;
 import org.json.XML;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.barclays.transform.controller.TransformController;
 import com.barclays.transform.model.ListServices;
 import com.barclays.transform.model.Service;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -46,13 +49,13 @@ public class TransformService {
 	 * 
 	 */
 	public final String TRANSFORM_TABLE = "TranformServicesTable.json";
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(TransformService.class);
+	
 	public TransformService() {
 		super();
 	}
 
-	public String TransformXSLT(int serviceType, String operation, String operationType, String message) {
-		ClassLoader classLoader = getClass().getClassLoader();
+	public String TransformXSLT(int serviceType, String operation, String operationType, String message, String path) {
 		String transformResult = null;
 		try {
 			List<Service> serviceListTransform = getTransformTable();
@@ -76,8 +79,13 @@ public class TransformService {
 				messageSource = messagebody;
 			}
 
-			Source xslt = new StreamSource(new File(classLoader.getResource(transformTemplate).getFile()));
-			Transformer transformer = factory.newTransformer(xslt);
+			LOGGER.info(path + "/" +  transformTemplate);
+			
+			Source xslt = new StreamSource(
+					new File(path + "/" + transformTemplate));
+			LOGGER.info("Paso el file");
+			Templates xsl = factory.newTemplates(xslt);
+			Transformer transformer = xsl.newTransformer();
 
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder;
@@ -93,7 +101,7 @@ public class TransformService {
 			String finalstring = sb.toString();
 			transformResult = finalstring;
 
-			if (connectionType.equals("REST")) {
+			if (!connectionType.equals("REST")) {
 				JSONObject xmlJSONObj = XML.toJSONObject(transformResult);
 				transformResult = xmlJSONObj.toString();
 				System.out.println(transformResult);
@@ -113,7 +121,7 @@ public class TransformService {
 		} catch (IOException e) {
 			transformResult = "Exception: se produjo un error inesperado";
 			e.printStackTrace();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			transformResult = "Exception: se produjo un error inesperado";
 			e.printStackTrace();
 		}
@@ -121,10 +129,9 @@ public class TransformService {
 	}
 
 	public List<Service> getTransformTable() throws JsonParseException, JsonMappingException, IOException {
-		ClassLoader classLoader = getClass().getClassLoader();
 		ListServices listServices = null;
 		List<Service> serviceList = null;
-		BufferedReader br = new BufferedReader(new FileReader(classLoader.getResource(TRANSFORM_TABLE).getFile()));
+		InputStream br = TransformService.class.getClassLoader().getResourceAsStream(TRANSFORM_TABLE);
 		listServices = new ObjectMapper().readValue(br, ListServices.class);
 		serviceList = listServices.getListServices();
 		return serviceList;

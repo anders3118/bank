@@ -2,13 +2,13 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2018.05.20 a las 12:51:22 PM COT 
+// Generado el: 2018.05.21 a las 10:07:08 PM COT 
 //
 
 
-package com.barclays.routing.message;
-
+package com.barclays.transform.model;
 import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -55,12 +55,12 @@ public class ProviderType
 {
 
     private final static long serialVersionUID = 1L;
-    protected Integer id;
+    protected int id;
     @XmlElement(required = true)
     protected String name;
     @XmlElement(required = true)
     protected String description;
-    private Boolean enable;
+    protected boolean enable;
     @XmlElement(required = true)
     protected String operation;
     protected RestType rest;
@@ -70,7 +70,7 @@ public class ProviderType
      * Obtiene el valor de la propiedad id.
      * 
      */
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -78,7 +78,7 @@ public class ProviderType
      * Define el valor de la propiedad id.
      * 
      */
-    public void setId(Integer value) {
+    public void setId(int value) {
         this.id = value;
     }
 
@@ -130,7 +130,21 @@ public class ProviderType
         this.description = value;
     }
 
+    /**
+     * Obtiene el valor de la propiedad enable.
+     * 
+     */
+    public boolean isEnable() {
+        return enable;
+    }
 
+    /**
+     * Define el valor de la propiedad enable.
+     * 
+     */
+    public void setEnable(boolean value) {
+        this.enable = value;
+    }
 
     /**
      * Obtiene el valor de la propiedad operation.
@@ -204,11 +218,4 @@ public class ProviderType
         this.soap = value;
     }
 
-    public Boolean getEnable() {
-        return enable;
-    }
-
-    public void setEnable(Boolean enable) {
-        this.enable = enable;
-    }
 }

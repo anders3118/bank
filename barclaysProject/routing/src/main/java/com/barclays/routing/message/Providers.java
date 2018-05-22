@@ -1,4 +1,5 @@
-package com.barclays.routing.model.impl;
+package com.barclays.routing.message;
+
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -8,13 +9,13 @@ import java.util.List;
 public class Providers {
     @SerializedName("providers")
     @Expose
-    private List<Provider> providers = null;
+    private List<ProviderType> providers = null;
 
-    public List<Provider> getProviders() {
+    public List<ProviderType> getProviders() {
         return providers;
     }
 
-    public void setProviders(List<Provider> providers) {
+    public void setProviders(List<ProviderType> providers) {
         this.providers = providers;
     }
 }
