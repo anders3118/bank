@@ -1,9 +1,12 @@
 
 package com.barclays.routing.model.impl;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Provider {
 
     @SerializedName("id")
@@ -20,12 +23,14 @@ public class Provider {
     private String operation;
     @SerializedName("soap")
     @Expose
+    @JsonIgnore
     private Soap soap;
     @SerializedName("enabled")
     @Expose
     private Boolean enabled;
     @SerializedName("rest")
     @Expose
+    @JsonIgnore
     private Rest rest;
 
     public Integer getId() {
