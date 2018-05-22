@@ -93,7 +93,7 @@ public class TransformService {
 			String finalstring = sb.toString();
 			transformResult = finalstring;
 
-			if (connectionType.equals("REST")) {
+			if (!connectionType.equals("REST")) {
 				JSONObject xmlJSONObj = XML.toJSONObject(transformResult);
 				transformResult = xmlJSONObj.toString();
 				System.out.println(transformResult);

@@ -13,24 +13,24 @@ public class InternalServiceResponse {
 	 * 
 	 */
 
-	public InternalResponse internalResponse;
+	public InternalResponseType internalResponse;
 	public int serviceType;
 
 	public InternalServiceResponse() {
 		super();
 	}
 
-	public InternalServiceResponse(InternalResponse internalResponse, int serviceType) {
+	public InternalServiceResponse(InternalResponseType internalResponse, int serviceType) {
 		super();
 		this.internalResponse = internalResponse;
 		this.serviceType = serviceType;
 	}
 
-	public InternalResponse getInternalResponse() {
+	public InternalResponseType getInternalResponse() {
 		return internalResponse;
 	}
 
-	public void setInternalResponse(InternalResponse internalResponse) {
+	public void setInternalResponse(InternalResponseType internalResponse) {
 		this.internalResponse = internalResponse;
 	}
 
@@ -45,7 +45,7 @@ public class InternalServiceResponse {
 	@Override
 	public String toString() {
 		return "{\"internalResponse\":{\"message\":" + internalResponse.getMessage() + ",messageType\":\""
-				+ internalResponse.getMessageType() + "\"},\"serviceType\":" + serviceType + "}";
+				+ internalResponse.getMassageType() + "\"},\"serviceType\":" + serviceType + "}";
 	}
 
 }
