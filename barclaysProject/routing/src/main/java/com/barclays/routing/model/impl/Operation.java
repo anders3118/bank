@@ -40,16 +40,28 @@ public class Operation implements IOperation {
 
 		ObjectMapper mapper = new ObjectMapper();
 		Providers providers = mapper.readValue(sRouting, Providers.class);
+		ProviderType providerType = new ProviderType();
 
 		if (providers != null) {
-			Optional<ProviderType> opt = providers.getProviders().stream().filter(p -> p.getId().equals(id)
-					&& p.getOperation().equalsIgnoreCase(operation)).findFirst();
-		
-			if (opt.isPresent()) {
-				return opt.get();
-
+			for (ProviderType provider : providers.getProviders()) {
+				int providerInt = provider.getId().intValue();
+				int idInt = id.intValue();
+				operation = operation.toUpperCase();
+				String operationProvider = provider.getOperation().toUpperCase();
+				if (idInt==providerInt && operation.equals(operationProvider)) {
+					providerType.setDescription(provider.getDescription());
+					providerType.setEnable(provider.getEnable());
+					providerType.setId(provider.getId());
+					providerType.setName(provider.getName());
+					providerType.setOperation(provider.getOperation());
+					providerType.setRest(provider.getRest());
+					providerType.setSoap(provider.getSoap());
+				}
 			}
-		
+			if(providerType.getDescription() != null)
+				return providerType;
+			else
+				throw new NoDataFound("this operation does not exist");
 		}
 		throw new NoDataFound("this operation does not exist");
 	}
