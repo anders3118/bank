@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.barclays.dispatcher.config.ClientServiceComponent;
+import com.barclays.dispatcher.message.InternalRequestType;
 import com.barclays.dispatcher.message.InternalServiceRQType;
 import com.barclays.dispatcher.message.InternalServiceRSType;
 import com.barclays.dispatcher.message.ProviderType;
@@ -41,12 +42,13 @@ public class DispatcherController {
 			ProviderType providerTrans = new ProviderType();
 			providerTrans.setRest(new RestType());
 			providerTrans.getRest().setEndPoint(endpointDispatcher);
+			providerTrans.getRest().setMethod("POST");
 
 			LOGGER.info("Llamando transformer");
 
 			/* Call transform for request */
 			InternalServiceRSType internalRS = serviceClient.getRestClient().callService(providerTrans,
-					internalServiceRQ.getInternalRequest().getMessage(), InternalServiceRSType.class);
+					internalServiceRQ, InternalServiceRSType.class);
 
 			LOGGER.info(String.format("Recibiendo respuesta de trans -> %s",
 					internalRS.getInternalResponse().getMessage()));
@@ -64,12 +66,19 @@ public class DispatcherController {
 			}
 
 			/* Call transform for response */
+			InternalServiceRQType internalServiceResposeProvider = new InternalServiceRQType();
+			internalServiceResposeProvider.setInternalRequest(new InternalRequestType());			
+			internalServiceResposeProvider.getInternalRequest().setMassageType("response");
+			internalServiceResposeProvider.getInternalRequest().setMessage(providerRS);
+			internalServiceResposeProvider.getInternalRequest().setOperation("consulta");
+			internalServiceResposeProvider.getInternalRequest().setProvider(null);
+			internalServiceResposeProvider.setServiceType("consulta");
 			LOGGER.info(String.format("Transformando respuesta del proveedor %s", providerRS));
-			internalRS = serviceClient.getRestClient().callService(providerTrans, providerRS,
+			
+			internalRS = serviceClient.getRestClient().callService(providerTrans, internalServiceResposeProvider,
 					InternalServiceRSType.class);
 
 			response = new ResponseEntity<>(internalRS, HttpStatus.OK);
-
 		} catch (Exception e) {
 			response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			LOGGER.error("ERROR - DispatcherController", e);

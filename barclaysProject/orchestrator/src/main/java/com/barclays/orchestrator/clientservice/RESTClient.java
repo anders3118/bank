@@ -44,7 +44,10 @@ public class RESTClient {
 			throw new OrchestratorException(
 					String.format("Método http %s no configurado", provider.getRest().getMethod()));
 
-		} catch (Exception e) {
+		} catch(OrchestratorException e) {
+			throw e;
+		}catch (Exception e) {
+			LOGGER.error("ERROR - RESTClient", e);
 			throw new OrchestratorException("Ocurrió un error ejecutar cliente REST", e);
 		}
 	}

@@ -21,20 +21,21 @@ public class RESTClient {
 		this.restTemplate = new RestTemplate();
 	}
 
-	public <T> T callService(ProviderType provider, String payload, Class<?> clazz) {
-		ResponseEntity<String> response = null;
+	@SuppressWarnings("unchecked")
+	public <T> T callService(ProviderType provider, Object payload, Class<?> clazz) {
+		ResponseEntity<T> response = null;
 		LOGGER.info(String.format("Consumiendo servicio %s", provider.getRest().getEndPoint()));
 
 		try {
 
 			if ("GET".equalsIgnoreCase(provider.getRest().getMethod())) {
-				response = restTemplate.getForEntity(provider.getRest().getEndPoint(), String.class);
+				response = (ResponseEntity<T>) restTemplate.getForEntity(provider.getRest().getEndPoint(), clazz);
 				return getBody(response);
 			} else if ("POST".equalsIgnoreCase(provider.getRest().getMethod())) {
 				HttpHeaders headers = new HttpHeaders();
 				headers.setContentType(MediaType.APPLICATION_JSON);
-				HttpEntity<String> entity = new HttpEntity<String>(payload, headers);
-				response = restTemplate.postForEntity(provider.getRest().getEndPoint(), entity, String.class);
+				HttpEntity<Object> entity = new HttpEntity<>(payload, headers);
+				response = (ResponseEntity<T>) restTemplate.postForEntity(provider.getRest().getEndPoint(), entity, clazz);
 				return getBody(response);
 			}
 

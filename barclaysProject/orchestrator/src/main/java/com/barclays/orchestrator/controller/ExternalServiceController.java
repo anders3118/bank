@@ -71,8 +71,16 @@ public class ExternalServiceController {
 
 			InternalServiceRSType internalServiceRS = restClient.callService(dispatcher, internalServiceRQ,
 					InternalServiceRSType.class);
+
+			LOGGER.info("respuesta del distpacher -> " + internalServiceRS.getInternalResponse().getMessage());
+
+			PaymentType payment = new PaymentType();
+			payment.setServiceId(123);
+			payment.setValue(234.232d);
+
+			response = new ResponseEntity<>(payment, HttpStatus.OK);
 		} catch (Exception e) {
-			LOGGER.info("Recibiendo petición para pago de servicios " + idFactura);
+			LOGGER.info("ERROR - ", e);
 			response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return response;
