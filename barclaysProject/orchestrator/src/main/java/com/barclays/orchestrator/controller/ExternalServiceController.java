@@ -20,7 +20,7 @@ public class ExternalServiceController {
 
 	@RequestMapping(value = { "/query/{idFactura}" }, method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<PaymentType> queryService(@PathVariable(required = true) Integer idFactura) {
-
+		
 		LOGGER.info("Recibiendo petición para pago de servicios");
 		ResponseEntity<PaymentType> response = null;
 
