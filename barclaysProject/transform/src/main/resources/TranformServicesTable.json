@@ -25,7 +25,7 @@
 			"service": 222,
 			"operation": "Consulta",
 			"operationType":"Request",
-			"connectionType":"SOAP",
+			"connectionType":"REST",
 			"transformName": "222_Consulta_Transformation_Request.xsl"
 		},
 		{
@@ -39,7 +39,7 @@
 			"service": 222,
 			"operation": "Pago",
 			"operationType":"Request",
-			"connectionType":"SOAP",
+			"connectionType":"REST",
 			"transformName": "222_Pago_Transformation_Request.xsl"
 		},
 		{
@@ -53,7 +53,7 @@
 			"service": 444,
 			"operation": "Consulta",
 			"operationType":"Request",
-			"connectionType":"SOAP",
+			"connectionType":"REST",
 			"transformName": "444_Consulta_Transformation_Request.xsl"
 		},
 		{
@@ -67,7 +67,7 @@
 			"service": 444,
 			"operation": "Pago",
 			"operationType":"Request",
-			"connectionType":"SOAP",
+			"connectionType":"REST",
 			"transformName": "444_Pago_Transformation_Request.xsl"
 		},
 		{

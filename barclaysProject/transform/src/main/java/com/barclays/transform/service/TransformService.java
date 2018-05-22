@@ -49,7 +49,7 @@ public class TransformService {
 	 */
 	public final String TRANSFORM_TABLE = "TranformServicesTable.json";
 	private static final Logger LOGGER = LoggerFactory.getLogger(TransformService.class);
-	
+
 	public TransformService() {
 		super();
 	}
@@ -78,10 +78,9 @@ public class TransformService {
 				messageSource = messagebody;
 			}
 
-			LOGGER.info(path + "/" +  transformTemplate);
-			
-			Source xslt = new StreamSource(
-					new File(path + "/" + transformTemplate));
+			LOGGER.info(path + "/" + transformTemplate);
+
+			Source xslt = new StreamSource(new File(path + "/" + transformTemplate));
 			LOGGER.info("Paso el file");
 			Templates xsl = factory.newTemplates(xslt);
 			Transformer transformer = xsl.newTransformer();
@@ -139,6 +138,7 @@ public class TransformService {
 	public String SetTransformTemplate(List<Service> services, int serviceType, String operation,
 			String operationType) {
 		String transformTemplate = null;
+
 		for (Service service : services) {
 			if (service.getService() == serviceType && service.getOperation().equalsIgnoreCase(operation)
 					&& service.getOperationType().equalsIgnoreCase(operationType)) {

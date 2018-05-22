@@ -35,6 +35,7 @@ public class DispatcherController {
 
 		LOGGER.info("Recibiendo peticion");
 		ResponseEntity<InternalServiceRSType> response = null;
+		InternalServiceRSType internalRS = null;
 
 		try {
 			ProviderType provider = internalServiceRQ.getInternalRequest().getProvider();
@@ -44,22 +45,35 @@ public class DispatcherController {
 			providerTrans.getRest().setEndPoint(endpointDispatcher);
 			providerTrans.getRest().setMethod("POST");
 
-			LOGGER.info("Llamando transformer");
-
 			/* Call transform for request */
-			InternalServiceRSType internalRS = serviceClient.getRestClient().callService(providerTrans,
-					internalServiceRQ, InternalServiceRSType.class);
+			if ((provider.getSoap() != null)
+					|| (null != provider.getRest() && provider.getRest().getMethod().equalsIgnoreCase("POST"))) {
 
-			LOGGER.info(String.format("Recibiendo respuesta de trans -> %s",
-					internalRS.getInternalResponse().getMessage()));
+				LOGGER.info("Llamando transformer");
+
+				internalRS = serviceClient.getRestClient().callService(providerTrans, internalServiceRQ,
+						InternalServiceRSType.class);
+				LOGGER.info(String.format("Recibiendo respuesta de trans -> %s",
+						internalRS.getInternalResponse().getMessage()));
+			}
 
 			/* Call provider */
 			LOGGER.info("Llamando proveedor");
 
 			String providerRS;
 			if (null != provider.getRest()) {
-				providerRS = serviceClient.getRestClient().callService(provider,
-						internalRS.getInternalResponse().getMessage(), String.class);
+
+				if (null != internalRS) {
+					providerRS = serviceClient.getRestClient().callService(provider,
+							internalRS.getInternalResponse().getMessage(), String.class);
+				} else {
+					String endpoint = String.format("%s%s%s", provider.getRest().getEndPoint(), "/",
+							internalServiceRQ.getInternalRequest().getMessage());
+
+					provider.getRest().setMethod(endpoint);
+					providerRS = serviceClient.getRestClient().callService(provider, null, String.class);
+				}
+
 			} else {
 				providerRS = serviceClient.getSoapClient().callService(provider,
 						internalRS.getInternalResponse().getMessage());
@@ -67,15 +81,15 @@ public class DispatcherController {
 
 			/* Call transform for response */
 			InternalServiceRQType internalServiceResposeProvider = new InternalServiceRQType();
-			internalServiceResposeProvider.setInternalRequest(new InternalRequestType());			
+			internalServiceResposeProvider.setInternalRequest(new InternalRequestType());
 			internalServiceResposeProvider.getInternalRequest().setMassageType("response");
 			internalServiceResposeProvider.getInternalRequest().setMessage(providerRS);
 			internalServiceResposeProvider.getInternalRequest().setOperation("consulta");
 			internalServiceResposeProvider.getInternalRequest().setProvider(null);
 			internalServiceResposeProvider.setServiceType(internalServiceRQ.getServiceType());
-			
+
 			LOGGER.info(String.format("Transformando respuesta del proveedor %s", providerRS));
-			
+
 			internalRS = serviceClient.getRestClient().callService(providerTrans, internalServiceResposeProvider,
 					InternalServiceRSType.class);
 

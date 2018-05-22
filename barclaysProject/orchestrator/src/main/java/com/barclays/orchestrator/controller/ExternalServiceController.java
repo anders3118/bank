@@ -62,11 +62,16 @@ public class ExternalServiceController {
 
 			InternalServiceRQType internalServiceRQ = new InternalServiceRQType();
 			internalServiceRQ.setInternalRequest(new InternalRequestType());
-			internalServiceRQ.getInternalRequest().setMassageType("request");
-			internalServiceRQ.getInternalRequest().setMessage(String.format("{\"serviceId\" : %d}", agreement));
+			internalServiceRQ.getInternalRequest().setMassageType("request");			
 			internalServiceRQ.getInternalRequest().setOperation("consulta");
 			internalServiceRQ.getInternalRequest().setProvider(responseRouting);
 			internalServiceRQ.setServiceType(agreement);
+			
+			if(responseRouting.getRest() != null && responseRouting.getRest().getMethod().equalsIgnoreCase("GET")) {
+				internalServiceRQ.getInternalRequest().setMessage(idFactura.toString());
+			}else {
+				internalServiceRQ.getInternalRequest().setMessage(String.format("{\"serviceId\" : %d}", idFactura));
+			}
 			
 			LOGGER.info(String.format("Llamando dispatcher %s ", dispatcher.getRest().getEndPoint()));
 
