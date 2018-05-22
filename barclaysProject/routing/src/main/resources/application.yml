@@ -1,0 +1,5 @@
+#Server
+server:
+  port: ${SERVER_PORT:9222}
+  servlet:
+    contextPath: /barclays/routing

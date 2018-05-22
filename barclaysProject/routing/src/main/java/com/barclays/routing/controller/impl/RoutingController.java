@@ -24,13 +24,13 @@ public class RoutingController implements IRoutingController {
    @Autowired
    private IListOperation iListOperation;
 	
-   @RequestMapping("/v1/routing")
+   @RequestMapping("/v1")
    public String listOperation(HttpServletRequest request) throws NoDataFound , FileNotFoundException {
 
       return iListOperation.getProviaders();
     }
 
-   @RequestMapping("/v1/routing/{id}/{operation}")
+   @RequestMapping("/v1/{id}/{operation}")
    public String operation(@PathVariable("id") String id,@PathVariable("operation") String operation, HttpServletRequest request) throws NoDataFound  ,  FileNotFoundException {
 
       Gson gson = new Gson();
