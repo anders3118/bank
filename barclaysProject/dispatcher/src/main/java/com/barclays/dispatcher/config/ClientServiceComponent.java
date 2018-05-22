@@ -3,7 +3,6 @@ package com.barclays.dispatcher.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import com.barclays.dispatcher.clientservice.IClientService;
 import com.barclays.dispatcher.clientservice.RESTClient;
 import com.barclays.dispatcher.clientservice.SOAPClient;
 
@@ -11,12 +10,12 @@ import com.barclays.dispatcher.clientservice.SOAPClient;
 public class ClientServiceComponent {
 
 	@Bean
-	public IClientService getRestClient() {
+	public RESTClient getRestClient() {
 		return new RESTClient();
 	}
 
 	@Bean
-	public IClientService getSoapClient() {
+	public SOAPClient getSoapClient() {
 		return new SOAPClient();
 	}
 }

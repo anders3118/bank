@@ -1,15 +1,12 @@
 
 #Server
 server:
-  port: 7001
+  port: ${SERVER_PORT:9111}
   servlet:
     contextPath: /barclays
     
-#Kafka    
-connect:
-  timeout: 10000
-read:
-  timeout: 10000
-jsa:
-  kafka:
-    bootstrap-servers: localhost:9092
+    
+#Application Environment
+enpoint:
+  routing: ${ENDPOINT_ROUTING}
+  dispatcher: ${ENDPOINT_DISPATCHER}

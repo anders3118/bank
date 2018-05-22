@@ -14,12 +14,11 @@ import javax.xml.ws.Service;
 import javax.xml.ws.soap.SOAPBinding;
 
 import com.barclays.dispatcher.exception.DispatcherException;
-import com.barclays.dispatcher.message.routing.ProviderType;
+import com.barclays.dispatcher.message.ProviderType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class SOAPClient implements IClientService {
+public class SOAPClient {
 
-	@Override
 	public String callService(ProviderType provider, String payload) {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
@@ -50,7 +49,7 @@ public class SOAPClient implements IClientService {
 			SOAPBody soapBody = response.getSOAPBody();
 			SOAPBodyElement bodyElement = (SOAPBodyElement) soapBody.getChildElements().next();
 
-			return  mapper.writeValueAsString(bodyElement);
+			return mapper.writeValueAsString(bodyElement);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DispatcherException("Ocurrió un error ejecutar cliente SOAP", e);
