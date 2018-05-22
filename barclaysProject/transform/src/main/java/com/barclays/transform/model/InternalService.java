@@ -12,24 +12,24 @@ public class InternalService {
 	/**
 	 * 
 	 */
-	public InternalRequest internalRequest;
+	public InternalRequestType internalRequest;
 	public int serviceType;
 
 	public InternalService() {
 		super();
 	}
 
-	public InternalService(InternalRequest internalRequest, int serviceType) {
+	public InternalService(InternalRequestType internalRequest, int serviceType) {
 		super();
 		this.internalRequest = internalRequest;
 		this.serviceType = serviceType;
 	}
 
-	public InternalRequest getInternalRequest() {
+	public InternalRequestType getInternalRequest() {
 		return internalRequest;
 	}
 
-	public void setInternalRequest(InternalRequest internalRequest) {
+	public void setInternalRequest(InternalRequestType internalRequest) {
 		this.internalRequest = internalRequest;
 	}
 
@@ -44,7 +44,7 @@ public class InternalService {
 	@Override
 	public String toString() {
 		return "{ \"internalRequest\":{\"operation\":\"" + internalRequest.getOperation() + "\", \"message\":\""
-				+ internalRequest.getMessage() + "\",\"messageType\":\"" + internalRequest.getMessageType()
+				+ internalRequest.getMessage() + "\",\"messageType\":\"" + internalRequest.getMassageType()
 				+ "\"},\"serviceType\":" + serviceType + "}";
 	}
 

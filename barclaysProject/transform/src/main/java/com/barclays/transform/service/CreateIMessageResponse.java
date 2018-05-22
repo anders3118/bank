@@ -3,7 +3,7 @@
  */
 package com.barclays.transform.service;
 
-import com.barclays.transform.model.InternalResponse;
+import com.barclays.transform.model.InternalResponseType;
 import com.barclays.transform.model.InternalServiceResponse;
 
 /**
@@ -20,9 +20,9 @@ public class CreateIMessageResponse {
 	}
 
 	public InternalServiceResponse CreateMessageResponse(String messageResponse, String messageType, int serviceType) {
-		InternalResponse internalResponse = new InternalResponse();
+		InternalResponseType internalResponse = new InternalResponseType();
 		internalResponse.setMessage(messageResponse);
-		internalResponse.setMessageType(messageType);
+		internalResponse.setMassageType(messageType);
 
 		InternalServiceResponse internalServiceResponse = new InternalServiceResponse();
 		internalServiceResponse.setInternalResponse(internalResponse);
