@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.barclays.transform.model.InternalRequestType;
-import com.barclays.transform.model.InternalService;
-import com.barclays.transform.model.InternalServiceResponse;
+import com.barclays.transform.model.InternalServiceRQType;
+import com.barclays.transform.model.InternalServiceRSType;
 import com.barclays.transform.service.CreateIMessageResponse;
 import com.barclays.transform.service.TransformService;
 
@@ -41,16 +41,16 @@ public class TransformController {
 	
 	@RequestMapping(value = {
 			"/v1" }, method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-	public ResponseEntity<InternalServiceResponse> payPublicService(
-			@RequestBody(required = true) InternalService internalService) {
+	public ResponseEntity<InternalServiceRSType> payPublicService(
+			@RequestBody(required = true) InternalServiceRQType internalService) {
 		LOGGER.info("Recibiendo petición para transformación de servicios");
 
-		ResponseEntity<InternalServiceResponse> response = null;
+		ResponseEntity<InternalServiceRSType> response = null;
 		System.out.println("received content = " + internalService.toString());
 
-		InternalService inteService = internalService;
+		InternalServiceRQType inteService = internalService;
 		InternalRequestType internalRequest = inteService.getInternalRequest();
-		InternalServiceResponse internalServiceResponse = null;
+		InternalServiceRSType internalServiceResponse = null;
 		CreateIMessageResponse createIMessageResponse = null;
 		TransformService transformService = new TransformService();
 		String transformResult = transformService.TransformXSLT(internalService.getServiceType(),
@@ -60,12 +60,12 @@ public class TransformController {
 			createIMessageResponse = new CreateIMessageResponse();
 			internalServiceResponse = createIMessageResponse.CreateMessageResponse(transformResult,
 					internalRequest.getMassageType(), internalService.getServiceType());
-			response = new ResponseEntity<InternalServiceResponse>(internalServiceResponse, HttpStatus.OK);
+			response = new ResponseEntity<InternalServiceRSType>(internalServiceResponse, HttpStatus.OK);
 		} else {
 			createIMessageResponse = new CreateIMessageResponse();
 			internalServiceResponse = createIMessageResponse.CreateMessageResponse(transformResult,
 					internalRequest.getMassageType(), internalService.getServiceType());
-			response = new ResponseEntity<InternalServiceResponse>(internalServiceResponse,
+			response = new ResponseEntity<InternalServiceRSType>(internalServiceResponse,
 					HttpStatus.UNSUPPORTED_MEDIA_TYPE);
 		}
 

@@ -42,11 +42,12 @@ public class ExternalServiceController {
 		ResponseEntity<PaymentType> response = null;
 
 		try {
+			Integer agreement = Integer.parseInt(idFactura.toString().substring(0, 3));
 
 			ProviderType routing = new ProviderType();
 			routing.setRest(new RestType());
 
-			routing.getRest().setEndPoint(String.format("%s%s%s%s", endpointRouting, "/", idFactura, "/consulta"));
+			routing.getRest().setEndPoint(String.format("%s%s%s%s", endpointRouting, "/", agreement, "/consulta"));
 			routing.getRest().setMethod("GET");
 
 			// Llamar al routing
@@ -62,11 +63,11 @@ public class ExternalServiceController {
 			InternalServiceRQType internalServiceRQ = new InternalServiceRQType();
 			internalServiceRQ.setInternalRequest(new InternalRequestType());
 			internalServiceRQ.getInternalRequest().setMassageType("request");
-			internalServiceRQ.getInternalRequest().setMessage(idFactura.toString());
+			internalServiceRQ.getInternalRequest().setMessage(String.format("{\"serviceId\" : %d}", agreement));
 			internalServiceRQ.getInternalRequest().setOperation("consulta");
 			internalServiceRQ.getInternalRequest().setProvider(responseRouting);
-			internalServiceRQ.setServiceType("consulta");
-
+			internalServiceRQ.setServiceType(agreement);
+			
 			LOGGER.info(String.format("Llamando dispatcher %s ", dispatcher.getRest().getEndPoint()));
 
 			InternalServiceRSType internalServiceRS = restClient.callService(dispatcher, internalServiceRQ,

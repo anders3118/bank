@@ -31,7 +31,6 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import com.barclays.transform.controller.TransformController;
 import com.barclays.transform.model.ListServices;
 import com.barclays.transform.model.Service;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -141,9 +140,10 @@ public class TransformService {
 			String operationType) {
 		String transformTemplate = null;
 		for (Service service : services) {
-			if (service.getService() == serviceType && service.getOperation().equals(operation)
-					&& service.getOperationType().equals(operationType)) {
+			if (service.getService() == serviceType && service.getOperation().equalsIgnoreCase(operation)
+					&& service.getOperationType().equalsIgnoreCase(operationType)) {
 				transformTemplate = service.getTransformName();
+				break;
 			}
 		}
 		return transformTemplate;
@@ -152,9 +152,10 @@ public class TransformService {
 	public String SetConnectionType(List<Service> services, int serviceType, String operation, String operationType) {
 		String connectionType = null;
 		for (Service service : services) {
-			if (service.getService() == serviceType && service.getOperation().equals(operation)
-					&& service.getOperationType().equals(operationType)) {
+			if (service.getService() == serviceType && service.getOperation().equalsIgnoreCase(operation)
+					&& service.getOperationType().equalsIgnoreCase(operationType)) {
 				connectionType = service.getConnectionType();
+				break;
 			}
 		}
 		return connectionType;

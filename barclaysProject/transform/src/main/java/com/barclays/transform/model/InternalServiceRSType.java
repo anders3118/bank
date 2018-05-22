@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
 // Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2018.05.22 a las 09:54:46 AM COT 
+// Generado el: 2018.05.22 a las 11:06:46 AM COT 
 //
 
 
@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="internalResponse" type="{http://barclays.com/message/bussines/services}InternalResponseType"/>
- *         &lt;element name="serviceType" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="serviceType" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -47,8 +47,7 @@ public class InternalServiceRSType
     private final static long serialVersionUID = 1L;
     @XmlElement(required = true)
     protected InternalResponseType internalResponse;
-    @XmlElement(required = true)
-    protected String serviceType;
+    protected int serviceType;
 
     /**
      * Obtiene el valor de la propiedad internalResponse.
@@ -77,24 +76,16 @@ public class InternalServiceRSType
     /**
      * Obtiene el valor de la propiedad serviceType.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getServiceType() {
+    public int getServiceType() {
         return serviceType;
     }
 
     /**
      * Define el valor de la propiedad serviceType.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setServiceType(String value) {
+    public void setServiceType(int value) {
         this.serviceType = value;
     }
 

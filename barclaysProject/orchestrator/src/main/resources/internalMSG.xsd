@@ -7,7 +7,7 @@
 		<sequence>
 			<element name="internalRequest" type="tns:InternalRequestType"
 				minOccurs="1" maxOccurs="1"></element>
-			<element name="serviceType" type="string" minOccurs="1"
+			<element name="serviceType" type="int" minOccurs="1"
 				maxOccurs="1"></element>
 		</sequence>
 	</complexType>
@@ -29,7 +29,7 @@
 		<sequence>
 			<element name="internalResponse" type="tns:InternalResponseType"
 				minOccurs="1" maxOccurs="1"></element>
-			<element name="serviceType" type="string" minOccurs="1"
+			<element name="serviceType" type="int" minOccurs="1"
 				maxOccurs="1"></element>
 		</sequence>
 	</complexType>

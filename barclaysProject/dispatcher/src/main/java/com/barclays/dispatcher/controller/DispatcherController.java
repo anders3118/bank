@@ -72,7 +72,8 @@ public class DispatcherController {
 			internalServiceResposeProvider.getInternalRequest().setMessage(providerRS);
 			internalServiceResposeProvider.getInternalRequest().setOperation("consulta");
 			internalServiceResposeProvider.getInternalRequest().setProvider(null);
-			internalServiceResposeProvider.setServiceType("consulta");
+			internalServiceResposeProvider.setServiceType(internalServiceRQ.getServiceType());
+			
 			LOGGER.info(String.format("Transformando respuesta del proveedor %s", providerRS));
 			
 			internalRS = serviceClient.getRestClient().callService(providerTrans, internalServiceResposeProvider,
