@@ -47,8 +47,9 @@ public class Operation implements IOperation {
 		
 			if (opt.isPresent()) {
 				return opt.get();
-			}
 
+			}
+		
 		}
 		throw new NoDataFound("this operation does not exist");
 	}
