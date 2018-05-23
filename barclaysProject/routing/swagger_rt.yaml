@@ -1,0 +1,46 @@
+swagger: '2.0'
+info:
+  description: 'comunicación standar entre servicios especializados '
+  version: 1.0.0
+  title: Swagger Taller MVA Microservicios
+  contact:
+    email: yeselin@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+schemes:
+  - http
+basePath: /barclays
+host: 127.0.0.1:9222
+tags:
+  - name: barclays
+    description: Ejemplo de MicroServicios - caso de estudio modelado de arquitectura.
+paths:
+  '/routing/v1/{id}/{operation}':
+    get:
+      tags:
+        - Enruta al Endpoint
+      summary: consulta el endpoint segun la necesidad del id del servicio enviado
+      operationId: checkLoan
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Id del servicio (agua,luz,telefono, etc)
+          required: true
+          type: integer
+          format: int64
+        - name: operation
+          in: path
+          description: operacion a realizar 
+          required: true
+          type: string
+      responses:
+        '200':
+          description: mensaje interno con el endpoint
+        '400':
+          description: Bad request
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
