@@ -1,0 +1,68 @@
+swagger: '2.0'
+info:
+  description: 'Comunicación estandar entre servicios especializados '
+  version: 1.0.0
+  title: Swagger Taller MVA Microservicios
+  contact:
+    email: yeselin@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+schemes:
+  - http
+basePath: /barclays
+host: 127.0.0.1:9444
+tags:
+  - name: barclays
+    description: Ejemplo de MicroServicios - caso de estudio modelado de arquitectura.
+paths:
+ '/transform/v1':
+    post:
+      tags:
+        - 'Traducción de Mensajes'
+      summary: 'obtiene un mensaje y lo traduce al esquema adecuado para el proveedor y de éste a mensajes internos.'
+      description: 'Para la peticion InternalServiceRQType y para la Respuesta InternalServiceRSType'
+      operationId: InternalServiceRQType
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: >-
+            Mensajeria que se recibe en el cuerpo de la peticion para el
+            servicio de Transformación
+          required: true
+          schema:
+            $ref: '#/definitions/body'
+      responses:
+        '405':
+          description: Invalid input
+definitions:
+  body:
+    type: object
+    properties:
+      service :
+        type: number
+        description: recibe los tres digitos que identifican el servicio
+        example: 333
+      operation:
+        type: string
+        description: indica si es Pago o es Consulta
+        example: 'Pago'
+      operationType:
+        type: string
+        description: indica el tipo de operacion Request o Response 
+        example: 'Request'
+      connectionType:
+        type: string
+        description: indica el tipo de conexion de servicio REST o SOAP
+        example: 'REST'
+      transformName:
+        type: string
+        description: indica el nombre del archivo a transformar
+        example: '333_Post_Transformation_Request.xsl'
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
