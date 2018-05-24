@@ -61,6 +61,8 @@ public class TransformService {
 			String transformTemplate = SetTransformTemplate(serviceListTransform, serviceType, operation,
 					operationType);
 			String connectionType = SetConnectionType(serviceListTransform, serviceType, operation, operationType);
+			
+			String toTType = SetTotType(serviceListTransform, serviceType, operation, operationType);
 			String messageSource = null;
 			TransformerFactory factory = TransformerFactory.newInstance();
 
@@ -102,7 +104,7 @@ public class TransformService {
 			String finalstring = sb.toString();
 			transformResult = finalstring;
 
-			if (!connectionType.equals("REST")) {
+			if (toTType.equals("REST")) {
 				JSONObject xmlJSONObj = XML.toJSONObject(transformResult);
 				transformResult = xmlJSONObj.toString();
 				System.out.println(transformResult);
@@ -160,6 +162,17 @@ public class TransformService {
 			}
 		}
 		return connectionType;
+	}
+	
+	public String SetTotType(List<Service> services, int serviceType, String operation, String operationType) {
+		String totType = null;
+		for (Service service : services) {
+			if (service.getService() == serviceType && service.getOperation().equals(operation)
+					&& service.getOperationType().equals(operationType)) {
+				totType = service.getTotType();
+			}
+		}
+		return totType;
 	}
 
 }
