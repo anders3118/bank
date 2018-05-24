@@ -34,7 +34,7 @@ Se crearon los siguientes servicios especializados (microservicios) :
  - Despachador (**dispatcher**)
  - Traductor (**transform**)
 
-Para el estilo *Contract-first Web services* se utilizó **Swagger**,  el *Services Inventory* se realizó a través de un documento en JSON. El enrrutador esta basado en el patrón **Intermediate Routing** enrutamiento basado en datos, que identifca el Id del servicio del proveedor con el cual debe comunicarse (endpoint).
+Para el estilo *Contract-first Web services* se utilizó **Swagger**,  el *Services Inventory* se realizó a través de un documento en JSON, el cual identifica el Id del servicio del proveedor con el cual debe comunicarse (endpoint) implementando enrutamiento basado en datos según en el patrón **Intermediate Routing**.  La comunicacion interna entre los servicios se realiza mediante HTTP/REST y para los proveedores se soporta tanto el uso de REST mediante Json como el protocolo de SOAP.
 
-*Desplegar desde Docker hub
-
+![imagen](https://github.com/gherreras/bank/blob/45635762e33f0e3bd78e27ff29beece983b3296f/Arquirectura%20Servicios%20Banco.png)
+[esquema de la solución](https://github.com/gherreras/bank/blob/45635762e33f0e3bd78e27ff29beece983b3296f/Arquirectura%20Servicios%20Banco.png)
