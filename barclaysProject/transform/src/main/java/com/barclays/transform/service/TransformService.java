@@ -81,7 +81,7 @@ public class TransformService {
 			LOGGER.info(transformTemplate);
 
 			Source xslt = new StreamSource(new File(path + "/" + transformTemplate));
-			//Source xslt = new StreamSource(new File(transformTemplate));
+			// Source xslt = new StreamSource(new File(transformTemplate));
 			LOGGER.info("Paso el file");
 			Templates xsl = factory.newTemplates(xslt);
 			Transformer transformer = xsl.newTransformer();
@@ -92,8 +92,8 @@ public class TransformService {
 			System.out.println(message);
 			Document document = builder.parse(new InputSource(new StringReader(messageSource)));
 
-			//Source source = new StreamSource(new StringReader(message));
-			
+			// Source source = new StreamSource(new StringReader(message));
+
 			Source source = new DOMSource(document);
 			StringWriter outWriter = new StringWriter();
 			StreamResult result = new StreamResult(outWriter);
@@ -102,11 +102,12 @@ public class TransformService {
 			String finalstring = sb.toString();
 			transformResult = finalstring;
 
-	
-			JSONObject xmlJSONObj = XML.toJSONObject(transformResult);
-			transformResult = xmlJSONObj.toString();
-			System.out.println(transformResult);
-			
+			if (!connectionType.equals("REST")) {
+				JSONObject xmlJSONObj = XML.toJSONObject(transformResult);
+				transformResult = xmlJSONObj.toString();
+				System.out.println(transformResult);
+			}
+
 		} catch (TransformerConfigurationException e) {
 			transformResult = "Exception: se produjo un error inesperado";
 			e.printStackTrace();

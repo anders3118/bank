@@ -16,19 +16,21 @@ public class Service {
 	public String operation;
 	public String operationType;
 	public String connectionType;
+	public String totType;
 	public String transformName;
-	
 
 	public Service() {
 		super();
 	}
 
-	public Service(int service, String operation, String operationType, String connectionType, String transformName) {
+	public Service(int service, String operation, String operationType, String connectionType, String totType,
+			String transformName) {
 		super();
 		this.service = service;
 		this.operation = operation;
 		this.operationType = operationType;
 		this.connectionType = connectionType;
+		this.totType = totType;
 		this.transformName = transformName;
 	}
 
@@ -62,6 +64,14 @@ public class Service {
 
 	public void setConnectionType(String connectionType) {
 		this.connectionType = connectionType;
+	}
+
+	public String getTotType() {
+		return totType;
+	}
+
+	public void setTotType(String totType) {
+		this.totType = totType;
 	}
 
 	public String getTransformName() {
