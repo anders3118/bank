@@ -22,5 +22,5 @@ fi
 echo "Construyendo imagen $nameId"
 docker build -t $nameId .
 
-echo "Instanciando contenidor $nameId"
-docker run -d --name $nameId -p 9444:9444 --net=host $nameId
+#echo "Instanciando contenidor $nameId"
+#docker run -d --name $nameId -p 9444:9444 --net=host $nameId

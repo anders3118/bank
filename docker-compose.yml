@@ -4,15 +4,23 @@ services:
     image: orchestrator
     ports:
       - "9111:9111"
+    network_mode: "host"
+    container_name: orchestrator
   routing:
     image: routing
     ports: 
       - "9222:9222"
+    network_mode: "host"
+    container_name: routing
   dispatcher:
     image: dispatcher
     ports: 
       - "9333:9333"
+    network_mode: "host"
+    container_name: dispatcher
   transform:
     image: transform
     ports: 
       - "9444:9444"
+    network_mode: "host"
+    container_name: transform

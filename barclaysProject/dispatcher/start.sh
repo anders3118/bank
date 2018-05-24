@@ -7,6 +7,7 @@ nameId="dispatcher"
 
 containerId=`docker ps -a -q --filter "name=$nameId"`
 
+
 if [ ! -z "$containerId" ]
 then 
     echo "Deteniendo contenedor $nameId $containerId"
@@ -22,5 +23,5 @@ fi
 echo "Construyendo imagen $nameId"
 docker build -t $nameId .
 
-echo "Instanciando contenidor $nameId"
-docker run -d --name $nameId -p 9333:9333 --net=host $nameId
+#echo "Instanciando contenidor $nameId"
+#docker run -d --name $nameId -p 9333:9333 --net=host $nameId
