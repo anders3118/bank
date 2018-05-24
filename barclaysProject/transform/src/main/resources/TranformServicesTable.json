@@ -6,7 +6,7 @@
 			"operation": "Consulta",
 			"operationType":"Response",
 			"connectionType":"REST",
-			"totType":"REST",
+			"totType":"SOAP",
 			"transformName": "111_Consulta_Transformation_Response.xsl"
 		},
 		{
@@ -94,7 +94,7 @@
 			"operation": "Consulta",
 			"operationType":"Response",
 			"connectionType":"REST",
-			"totType":"REST",
+			"totType":"SOAP",
 			"transformName": "333_Consulta_Transformation_Response.xsl"
 		},
 		{
