@@ -152,6 +152,9 @@ public class ExternalServiceController {
 					.readValue(internalServiceRS.getInternalResponse().getMessage(), PaymentResponseType.class);
 
 			response = new ResponseEntity<>(paymentResponse, HttpStatus.OK);
+		} catch (HttpClientErrorException e) {
+			LOGGER.info("ERROR - ", e);
+			response = new ResponseEntity<>(e.getStatusCode());
 		} catch (Exception e) {
 			LOGGER.info("ERROR - ", e);
 			response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
