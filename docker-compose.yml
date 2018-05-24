@@ -5,14 +5,14 @@ services:
     ports:
       - "9111:9111"
   routing:
-    build: routing
+    image: routing
     ports: 
       - "9222:9222"
-  routing:
-    build: dispatcher
+  dispatcher:
+    image: dispatcher
     ports: 
       - "9333:9333"
   transform:
-    build: dispatcher
+    image: transform
     ports: 
       - "9444:9444"
