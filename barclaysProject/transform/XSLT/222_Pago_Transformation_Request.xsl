@@ -12,7 +12,7 @@
 						</sch:referenciaFactura>
 					</sch:referenciaFactura>
 					<sch:totalPagar>
-						<xsl:value-of select="root/billValue" />
+						<xsl:value-of select="root/value" />
 					</sch:totalPagar>
 				</sch:Pago>
 			</soapenv:Body>

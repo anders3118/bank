@@ -111,7 +111,7 @@
 			"operationType":"Response",
 			"connectionType":"REST",
 			"totType":"REST",
-			"transformName": "333_Post_Transformation_Resposne.xsl"
+			"transformName": "333_Post_Transformation_Response.xsl"
 		}
 	]
 }
