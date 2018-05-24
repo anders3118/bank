@@ -78,9 +78,10 @@ public class TransformService {
 				messageSource = messagebody;
 			}
 
-			LOGGER.info(path + "/" + transformTemplate);
+			LOGGER.info(transformTemplate);
 
-			Source xslt = new StreamSource(new File(path + "/" + transformTemplate));
+			//Source xslt = new StreamSource(new File(path + "/" + transformTemplate));
+			Source xslt = new StreamSource(new File(transformTemplate));
 			LOGGER.info("Paso el file");
 			Templates xsl = factory.newTemplates(xslt);
 			Transformer transformer = xsl.newTransformer();
@@ -88,9 +89,11 @@ public class TransformService {
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder;
 			builder = documentBuilderFactory.newDocumentBuilder();
+			System.out.println(message);
 			Document document = builder.parse(new InputSource(new StringReader(messageSource)));
 
-			// Source source = new StreamSource(new StringReader(message));
+			//Source source = new StreamSource(new StringReader(message));
+			
 			Source source = new DOMSource(document);
 			StringWriter outWriter = new StringWriter();
 			StreamResult result = new StreamResult(outWriter);
@@ -99,11 +102,11 @@ public class TransformService {
 			String finalstring = sb.toString();
 			transformResult = finalstring;
 
-			if (!connectionType.equals("REST")) {
-				JSONObject xmlJSONObj = XML.toJSONObject(transformResult);
-				transformResult = xmlJSONObj.toString();
-				System.out.println(transformResult);
-			}
+	
+			JSONObject xmlJSONObj = XML.toJSONObject(transformResult);
+			transformResult = xmlJSONObj.toString();
+			System.out.println(transformResult);
+			
 		} catch (TransformerConfigurationException e) {
 			transformResult = "Exception: se produjo un error inesperado";
 			e.printStackTrace();
@@ -138,12 +141,10 @@ public class TransformService {
 	public String SetTransformTemplate(List<Service> services, int serviceType, String operation,
 			String operationType) {
 		String transformTemplate = null;
-
 		for (Service service : services) {
-			if (service.getService() == serviceType && service.getOperation().equalsIgnoreCase(operation)
-					&& service.getOperationType().equalsIgnoreCase(operationType)) {
+			if (service.getService() == serviceType && service.getOperation().equals(operation)
+					&& service.getOperationType().equals(operationType)) {
 				transformTemplate = service.getTransformName();
-				break;
 			}
 		}
 		return transformTemplate;
@@ -152,10 +153,9 @@ public class TransformService {
 	public String SetConnectionType(List<Service> services, int serviceType, String operation, String operationType) {
 		String connectionType = null;
 		for (Service service : services) {
-			if (service.getService() == serviceType && service.getOperation().equalsIgnoreCase(operation)
-					&& service.getOperationType().equalsIgnoreCase(operationType)) {
+			if (service.getService() == serviceType && service.getOperation().equals(operation)
+					&& service.getOperationType().equals(operationType)) {
 				connectionType = service.getConnectionType();
-				break;
 			}
 		}
 		return connectionType;
