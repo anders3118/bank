@@ -16,37 +16,35 @@ tags:
 - name: "barclays"
   description: "Ejemplo de MicroServicios - caso de estudio modelado de arquitectura."
 paths:
-  /query/{idFactura}:
+  /paymentService/query/{idFactura}:
     get:
       tags:
         - "Consulta Factura"
-      summary: "Consulta de factura de servicios publicos"
-      operationId: "checkLoan"
+      summary: "Consulta de factura de servicios públicos"
+      operationId: "query"
       produces:
         - "application/json"
       parameters:
         - name: "idFactura"
           in: "path"
-          description: "Id del de la factura a consultar"
+          description: "Id de de la factura a consultar"
           required: true
           type: "integer"
           format: "int64"
       responses:
         200:
-          description: "información del pago"
+          description: "información de la factura"
           schema:
-            type: object
-            items:
-              $ref: '#/definitions/body'
-        400:
-          description: "Bad request"
+            $ref: '#/definitions/queryRS'
+        404:
+          description: "Not found"
   /paymentService/payment:
     post:
       tags:
       - "Pago de Factura"
       summary: "Servicio de pagos"
       description: ""
-      operationId: "addPet"
+      operationId: "payment"
       consumes:
       - "application/json"
       produces:
@@ -57,23 +55,56 @@ paths:
         description: "Mensajeria que se recibe en el cuerpo de la peticion para el servicio de Pagos"
         required: true
         schema:
-          $ref: "#/definitions/body"
+          $ref: "#/definitions/paymentRQ"
       responses:
-        '405':
+        200:
+          description: "Respuesta del pago efectuado"
+          schema:
+            $ref: '#/definitions/paymentRS'
+        404:
+          description: "Not found"
+        405:
           description: "Invalid input"
 definitions:
-  body:
+  queryRS:
     type: "object"
     properties:
         serviceId:
           type: "number"
           description: Identificador de la factura
           example: 333
+        service:
+          type: "string"
+          description: Nombre del servicio público
+          example: Agua, Electricidad, etc.
+        value:
+          type: "number"
+          description: valor de la factura
+          example: 78000
+    example: 
+      serviceId: 4449234
+      value: 28548.773
+      service: agua
+      
+  paymentRQ:
+    type: "object"
+    properties:
+        serviceId:
+          type: "number"
+          description: Identificador de la factura
+          example: 111345
         value:
           type: "string"
           description: valor de la factura
           example: '78000'
-
-externalDocs:
-  description: "Find out more about Swagger"
-  url: "http://swagger.io"
+  paymentRS:
+    type: "object"
+    properties:
+        serviceId:
+          type: "number"
+          description: Identificador de la factura
+          example: 111235
+        messageStatus:
+          type: "string"
+          description: Descripción del estado del pago
+          example: "Factura Pagada Exitosamente"
