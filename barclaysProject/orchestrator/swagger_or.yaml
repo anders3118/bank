@@ -59,7 +59,7 @@ paths:
         schema:
           $ref: "#/definitions/body"
       responses:
-        405:
+        '405':
           description: "Invalid input"
 definitions:
   body:
@@ -68,11 +68,11 @@ definitions:
         serviceId:
           type: "number"
           description: Identificador de la factura
-          example: 200
+          example: 333
         value:
           type: "string"
           description: valor de la factura
-          example: SUCCESS
+          example: '78000'
 
 externalDocs:
   description: "Find out more about Swagger"
