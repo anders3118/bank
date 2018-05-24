@@ -7,13 +7,14 @@
 		<sequence>
 			<element name="serviceId" type="int" minOccurs="1" maxOccurs="1"></element>
 			<element name="value" type="double" minOccurs="1" maxOccurs="1"></element>
+			<element name="service" type="string" minOccurs="0" maxOccurs="1"></element>
 		</sequence>
 	</complexType>
 
 	<complexType name="PaymentResponseType">
 		<sequence>
 			<element name="serviceId" type="int" minOccurs="1" maxOccurs="1"></element>
-			<element name="status" type="string" minOccurs="1"
+			<element name="messageStatus" type="string" minOccurs="1"
 				maxOccurs="1"></element>
 		</sequence>
 	</complexType>

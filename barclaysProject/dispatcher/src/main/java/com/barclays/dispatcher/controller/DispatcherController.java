@@ -27,7 +27,7 @@ public class DispatcherController {
 	private ClientServiceComponent serviceClient;
 
 	@Value("${enpoint.trans}")
-	private String endpointDispatcher;
+	private String endpointTrans;
 
 	@RequestMapping(value = "/v1", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<InternalServiceRSType> dispatch(
@@ -42,7 +42,7 @@ public class DispatcherController {
 
 			ProviderType providerTrans = new ProviderType();
 			providerTrans.setRest(new RestType());
-			providerTrans.getRest().setEndPoint(endpointDispatcher);
+			providerTrans.getRest().setEndPoint(endpointTrans);
 			providerTrans.getRest().setMethod("POST");
 
 			/* Call transform for request */
@@ -70,31 +70,31 @@ public class DispatcherController {
 					String endpoint = String.format("%s%s%s", provider.getRest().getEndPoint(), "/",
 							internalServiceRQ.getInternalRequest().getMessage());
 
-					provider.getRest().setMethod(endpoint);
+					provider.getRest().setEndPoint(endpoint);
 					providerRS = serviceClient.getRestClient().callService(provider, null, String.class);
 				}
 
 			} else {
 				providerRS = serviceClient.getSoapClient().callService(provider,
 						internalRS.getInternalResponse().getMessage());
+				providerRS = providerRS.replace("<?xml version=\\\"1.0\\\" encoding=\\\"UTF-16\\\"?>\\n", "");
+				providerRS = providerRS.replaceAll("\\\\", "");
+				providerRS = providerRS.replaceAll("\\\"<", "<");
+				providerRS = providerRS.replaceAll(">\\\"", ">");
 			}
-			
-			
+
 			/* Call transform for response */
-			String message = providerRS.replace("<?xml version=\\\"1.0\\\" encoding=\\\"UTF-16\\\"?>\\n", "");
-			message = message.replaceAll("\\\\", "");
-			message = message.replaceAll("\\\"<", "<");
-			message = message.replaceAll(">\\\"", ">");
 			InternalServiceRQType internalServiceResposeProvider = new InternalServiceRQType();
 			internalServiceResposeProvider.setInternalRequest(new InternalRequestType());
 			internalServiceResposeProvider.getInternalRequest().setMassageType("Response");
-			internalServiceResposeProvider.getInternalRequest().setMessage(message);
-			internalServiceResposeProvider.getInternalRequest().setOperation("Consulta");
+			internalServiceResposeProvider.getInternalRequest().setMessage(providerRS);
+			internalServiceResposeProvider.getInternalRequest()
+					.setOperation(internalServiceRQ.getInternalRequest().getOperation());
 			internalServiceResposeProvider.getInternalRequest().setProvider(provider);
 			internalServiceResposeProvider.setServiceType(internalServiceRQ.getServiceType());
 
 			LOGGER.info(String.format("Transformando respuesta del proveedor %s", providerRS));
-			
+
 			internalRS = serviceClient.getRestClient().callService(providerTrans, internalServiceResposeProvider,
 					InternalServiceRSType.class);
 

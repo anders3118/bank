@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.barclays.orchestrator.exception.OrchestratorException;
@@ -44,9 +45,12 @@ public class RESTClient {
 			throw new OrchestratorException(
 					String.format("Método http %s no configurado", provider.getRest().getMethod()));
 
-		} catch(OrchestratorException e) {
+		} catch (OrchestratorException e) {
 			throw e;
-		}catch (Exception e) {
+		} catch (HttpClientErrorException e) {
+			LOGGER.error("ERROR - RESTClient", e);
+			throw e;
+		} catch (Exception e) {
 			LOGGER.error("ERROR - RESTClient", e);
 			throw new OrchestratorException("Ocurrió un error ejecutar cliente REST", e);
 		}

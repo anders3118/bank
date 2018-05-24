@@ -1,0 +1,18 @@
+version: '2'
+services:
+  orchestrator:
+    image: orchestrator
+    ports:
+      - "9111:9111"
+  routing:
+    build: routing
+    ports: 
+      - "9222:9222"
+  routing:
+    build: dispatcher
+    ports: 
+      - "9333:9333"
+  transform:
+    build: dispatcher
+    ports: 
+      - "9444:9444"

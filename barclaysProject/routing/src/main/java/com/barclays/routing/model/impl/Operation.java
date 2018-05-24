@@ -32,36 +32,18 @@ public class Operation implements IOperation {
 	}
 
 	@Override
-	public ProviderType getProviader(Integer id, String operation)
-			throws Exception{
+	public ProviderType getProviader(Integer id, String operation) throws Exception {
 
 		String sRouting = restClient.callService("https://s3.amazonaws.com/modelo-arq/routing/endpoint.json",
 				String.class);
 
 		ObjectMapper mapper = new ObjectMapper();
 		Providers providers = mapper.readValue(sRouting, Providers.class);
-		ProviderType providerType = new ProviderType();
+		Optional<ProviderType> optional = providers.getProviders().stream()
+				.filter(p -> p.getId().equals(id) && p.getOperation().equalsIgnoreCase(operation)).findFirst();
 
-		if (providers != null) {
-			for (ProviderType provider : providers.getProviders()) {
-				int providerInt = provider.getId().intValue();
-				int idInt = id.intValue();
-				operation = operation.toUpperCase();
-				String operationProvider = provider.getOperation().toUpperCase();
-				if (idInt==providerInt && operation.equals(operationProvider)) {
-					providerType.setDescription(provider.getDescription());
-					providerType.setEnable(provider.getEnable());
-					providerType.setId(provider.getId());
-					providerType.setName(provider.getName());
-					providerType.setOperation(provider.getOperation());
-					providerType.setRest(provider.getRest());
-					providerType.setSoap(provider.getSoap());
-				}
-			}
-			if(providerType.getDescription() != null)
-				return providerType;
-			else
-				throw new NoDataFound("this operation does not exist");
+		if (optional.isPresent()) {
+			return optional.get();
 		}
 		throw new NoDataFound("this operation does not exist");
 	}
