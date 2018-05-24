@@ -80,8 +80,8 @@ public class TransformService {
 
 			LOGGER.info(transformTemplate);
 
-			//Source xslt = new StreamSource(new File(path + "/" + transformTemplate));
-			Source xslt = new StreamSource(new File(transformTemplate));
+			Source xslt = new StreamSource(new File(path + "/" + transformTemplate));
+			//Source xslt = new StreamSource(new File(transformTemplate));
 			LOGGER.info("Paso el file");
 			Templates xsl = factory.newTemplates(xslt);
 			Transformer transformer = xsl.newTransformer();
