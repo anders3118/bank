@@ -1,80 +1,79 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
-  description: 'Comunicación estandar entre servicios especializados '
-  version: 1.0.0
-  title: Swagger Taller MVA Microservicios
+  description: "comunicación standar entre servicios especializados "
+  version: "1.0.0"
+  title: "Swagger Taller MVA Microservicios"
   contact:
-    email: yeselin@gmail.com
+    email: "yeselin@gmail.com"
   license:
-    name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 schemes:
-  - http
-basePath: /barclays
-host: 127.0.0.1
+  - "http"
+basePath: "/barclays"
+host: "127.0.0.1"    
 tags:
-  - name: barclays
-    description: Ejemplo de MicroServicios - caso de estudio modelado de arquitectura.
+- name: "barclays"
+  description: "Ejemplo de MicroServicios - caso de estudio modelado de arquitectura."
 paths:
-  '/query/{idFactura}':
+  /query/{idFactura}:
     get:
       tags:
-        - Consulta Factura
-      summary: Consulta de factura de servicios
-      operationId: checkLoan
+        - "Consulta Factura"
+      summary: "Consulta de factura de servicios publicos"
+      operationId: "checkLoan"
       produces:
-        - application/json
+        - "application/json"
       parameters:
-        - name: idFactura
-          in: path
-          description: Id de la factura a consultar
+        - name: "idFactura"
+          in: "path"
+          description: "Id del de la factura a consultar"
           required: true
-          type: integer
-          format: int64
+          type: "integer"
+          format: "int64"
       responses:
-        '200':
-          description: información del pago
+        200:
+          description: "información del pago"
           schema:
             type: object
             items:
               $ref: '#/definitions/body'
-        '400':
-          description: Bad request
+        400:
+          description: "Bad request"
   /paymentService/payment:
     post:
       tags:
-        - paymentService
-      summary: Servicio de pagos
-      description: ''
-      operationId: addPet
+      - "Pago de Factura"
+      summary: "Servicio de pagos"
+      description: ""
+      operationId: "addPet"
       consumes:
-        - application/json
+      - "application/json"
       produces:
-        - application/json
+      - "application/json"
       parameters:
-        - in: body
-          name: body
-          description: >-
-            Mensajeria que se recibe en el cuerpo de la peticion para el
-            servicio de Pagos
-          required: true
-          schema:
-            $ref: '#/definitions/body'
+      - in: "body"
+        name: "body"
+        description: "Mensajeria que se recibe en el cuerpo de la peticion para el servicio de Pagos"
+        required: true
+        schema:
+          $ref: "#/definitions/body"
       responses:
-        '405':
-          description: Invalid input
+        405:
+          description: "Invalid input"
 definitions:
   body:
-    type: object
+    type: "object"
     properties:
-      serviceId:
-        type: number
-        description: Identificador de la factura
-        example: 200
-      value:
-        type: string
-        description: valor de la factura
-        example: SUCCESS
+        serviceId:
+          type: "number"
+          description: Identificador de la factura
+          example: 200
+        value:
+          type: "string"
+          description: valor de la factura
+          example: SUCCESS
+
 externalDocs:
-  description: Find out more about Swagger
-  url: 'http://swagger.io'
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
