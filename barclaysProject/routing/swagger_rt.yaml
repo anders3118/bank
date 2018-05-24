@@ -33,14 +33,76 @@ paths:
           format: int64
         - name: operation
           in: path
-          description: operacion a realizar 
+          description: operacion a realizar Consulta/Pago
           required: true
           type: string
       responses:
         '200':
-          description: mensaje interno con el endpoint
+          description: mensaje interno con el proveedor
+          schema:
+            type: object
+            $ref: '#/definitions/provider'
         '400':
           description: Bad request
+
+definitions:
+  provider:
+    type: object
+    properties:
+      id :
+        type : number
+        description : identificador de proveedor de Servicio publico
+        example : 333
+      name :
+        type : string
+        description : la descripcion del servicio publico
+        example : 'Agua'
+      description : 
+        type : string
+        description : texto descriptivo
+        example : 'servicio de agua'
+      enable :
+        type : boolean
+        description : indica si el servicio esta activo o no
+        example : true
+      operation :
+        type : string
+        description : indica si es una Consulta o es el Pago
+        example : 'Consultar'
+      rest : 
+        type:  object
+        properties:
+          endPoint : 
+            type : string
+            description : el endpoint del proveedor de servicio
+            example : 'http://localhost:9090/servicios/pagos/v1/payments'
+          method:
+            type : string 
+            description : indica el metodo http a utilizar GET,POST,PUT, etc.
+            example : 'POST'
+      soap :
+        type : object
+        properties:
+          endpoint:
+            type : string
+            description : direccion del endpoint
+            example : 'http://localhost:7070/w1-soap-svr/PagosServiceService?wsdl'
+          targetNameSpace:
+            type : string
+            description : espacio de nombre objetivo
+            example : 'http://www.servicios.co/pagos/schemas'
+          serviceName :
+            type : string
+            description : nombre del servicio
+            example : 'PagosServiceService'
+          servicePort :
+            type : string 
+            description : puerto de comunicacion del servicio
+            example : 'PagosInerface'
+          operation :
+            type : string
+            description : operacion a realizar Consultar o Pagar
+            example : 'Consultar'
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
