@@ -1,7 +1,29 @@
 {
-	"providers": [
+	"providers": [		
 		{
 			"id": 111,
+			"name": "electricidad",
+			"description": "Servicio consulta de factura de Electricidad",
+			"operation": "consulta",
+			"rest": {
+				"endPoint": "http://localhost:9090/servicios/pagos/v1/payments",
+				"method": "GET"
+			},
+			"enabled": true
+		},
+		{
+			"id": 111,
+			"name": "electricidad",
+			"description": "Servicio de pago de factura de Electricidad",
+			"operation": "pago",
+			"rest": {
+				"endPoint": "http://localhost:9090/servicios/pagos/v1/payments",
+				"method": "POST"
+			},
+			"enabled": true
+		},
+		{
+			"id": 444,
 			"name": "agua",
 			"description": "Servicio de consulta de factura acueducto",
 			"operation": "consulta",
@@ -10,12 +32,12 @@
 				"targetNameSpace": "http://www.servicios.co/pagos/schemas",
 				"serviceName": "PagosServiceService",
 				"servicePort": "PagosInerface",
-				"operation": "Cosultar"
+				"operation": "consultar"
 			},
 			"enabled": true
 		},
 		{
-			"id": 111,
+			"id": 444,
 			"name": "agua",
 			"description": "Servicio de pago de factura acueducto",
 			"operation": "pago",
@@ -24,28 +46,28 @@
 				"targetNameSpace": "http://www.servicios.co/pagos/schemas",
 				"serviceName": "PagosServiceService",
 				"servicePort": "PagosInerface",
-				"operation": "Pagar"
+				"operation": "pagar"
 			},
 			"enabled": true
 		},
 		{
-			"id": 444,
-			"name": "electricidad",
-			"description": "Servicio consulta de factura de Electricidad",
+			"id": 555,
+			"name": "telefonia",
+			"description": "Servicio consulta de factura de telefonia",
 			"operation": "consulta",
 			"rest": {
-				"endPoint": "http://localhost:9090/servicios/pagos/v1/payments/{id}",
+				"endPoint": "http://localhost:8080/servicios/pagos/v1/payments",
 				"method": "GET"
 			},
 			"enabled": true
 		},
 		{
-			"id": 444,
-			"name": "electricidad",
-			"description": "Servicio de pago de factura de Electricidad",
+			"id": 555,
+			"name": "telefonia",
+			"description": "Servicio de pago de factura de telefonia",
 			"operation": "pago",
 			"rest": {
-				"endPoint": "http://localhost:9090/servicios/pagos/v1/payments/{id}",
+				"endPoint": "http://localhost:8080/servicios/pagos/v1/payments",
 				"method": "POST"
 			},
 			"enabled": true
