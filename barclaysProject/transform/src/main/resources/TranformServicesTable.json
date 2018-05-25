@@ -111,7 +111,30 @@
 			"operationType":"Response",
 			"connectionType":"REST",
 			"totType":"REST",
-			"transformName": "333_Post_Transformation_Response.xsl"
+			"transformName": "555_Post_Transformation_Response.xsl"
+		},{
+			"service": 555,
+			"operation": "Consulta",
+			"operationType":"Response",
+			"connectionType":"REST",
+			"totType":"REST",
+			"transformName": "555_Consulta_Transformation_Response.xsl"
+		},
+		{
+			"service": 555,
+			"operation": "Pago",
+			"operationType":"Request",
+			"connectionType":"REST",
+			"totType":"REST",
+			"transformName": "555_Post_Transformation_Request.xsl"
+		},
+		{
+			"service": 555,
+			"operation": "Pago",
+			"operationType":"Response",
+			"connectionType":"REST",
+			"totType":"REST",
+			"transformName": "555_Post_Transformation_Response.xsl"
 		}
 	]
 }
