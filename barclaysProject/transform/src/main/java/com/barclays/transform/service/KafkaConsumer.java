@@ -1,55 +1,59 @@
 /**
  * 
- *//*
+ */
 package com.barclays.transform.service;
 
-import org.json.JSONObject;
-import org.json.XML;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
-import com.barclays.transform.model.InternalRequest;
-import com.barclays.transform.model.InternalService;
+import com.barclays.transform.model.InternalRequestType;
+import com.barclays.transform.model.InternalServiceRQType;
+import com.barclays.transform.model.InternalServiceRSType;
 import com.google.gson.Gson;
 
-*//**
+/**
  * @author marco.caipe
  *
- *//*
+ */
 @Component
 public class KafkaConsumer {
-
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(KafkaConsumer.class);
+	
 	@Autowired
 	KafkaSender kafkaSender;
 	
+	@Value("${path.to.file}")
+		private String path;
+	
 	@KafkaListener(topics = "${jsa.kafka.topic.in}")
-	public void processMessage(String message) {
-		System.out.println("received content = " + message);
+	public void processoMessage(String message) {
+
+		LOGGER.info("Recibiendo petición para transformación de servicios");
+		
 		Gson g = new Gson();
-		InternalService internalService;
-		internalService = g.fromJson(message, InternalService.class);
-		InternalRequest internalRequest = internalService.getInternalRequest();
+		InternalServiceRQType internalService;
+		internalService = g.fromJson(message, InternalServiceRQType.class);
 
-		//String body = g.toJson(internalRequest.getMessage());
-		String xml = null;
+		System.out.println("received content = " + internalService.toString());
 
-		if (body.contains("<")) {
-			xml = body;
-		} else {
-			body = body.substring(1, body.length() - 1);
-			body = body.replace("\\", "");
-			JSONObject json = new JSONObject(body);
-			xml = XML.toString(json);
-			xml = "<root>" + xml + "</root>";
-		}
+		InternalServiceRQType inteService = internalService;
+		InternalRequestType internalRequest = inteService.getInternalRequest();
+		InternalServiceRSType internalServiceResponse = null;
+		CreateIMessageResponse createIMessageResponse = null;
 		TransformService transformService = new TransformService();
 		String transformResult = transformService.TransformXSLT(internalService.getServiceType(),
-				internalRequest.getOperation(), internalRequest.getMessageType(), xml);
-		transformResult =  transformResult.replace("\"", "\\\"");
-		CreateIMessageResponse createIMessageResponse = new CreateIMessageResponse();
-//		String messageToSend = createIMessageResponse.CreateMessageResponse(transformResult,
-//				internalRequest.getMessageType(), internalService.getServiceType());
-//		kafkaSender.send(messageToSend);
+				internalRequest.getOperation(), internalRequest.getMassageType(), internalRequest.getMessage(), path);
+
+		createIMessageResponse = new CreateIMessageResponse();
+		internalServiceResponse = createIMessageResponse.CreateMessageResponse(transformResult,
+				internalRequest.getMassageType(), internalService.getServiceType());
+
+		
+		kafkaSender.send(internalServiceResponse.toString());
 	}
-}*/
+}	

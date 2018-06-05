@@ -6,3 +6,11 @@ server:
 path:
   to:
     file: ${PATH_XLST}
+jsa:
+  kafka:
+    topic:
+      in: barclays_transformIn
+      out: barclays_transformOut
+    consumer:
+      group-id: jsa-groupid
+    bootstrap-servers: 34.204.68.172:9092

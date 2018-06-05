@@ -88,5 +88,12 @@ public class InternalServiceRSType
     public void setServiceType(int value) {
         this.serviceType = value;
     }
+    
+	@Override
+	public String toString() {
+		return "{\"internalResponse\":{\"message\":" + internalResponse.getMessage() + ",messageType\":\""
+				+ internalResponse.getMassageType() + "\"},\"serviceType\":" + serviceType + "}";
+	}
+
 
 }
